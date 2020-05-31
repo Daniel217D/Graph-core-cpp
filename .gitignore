@@ -33,3 +33,6 @@
 
 x64/
 *.stash
+Makefile*
+debug/
+*.autosave

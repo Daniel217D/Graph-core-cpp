@@ -1,45 +1,56 @@
 #ifndef VERTEX_H
 #define VERTEX_H
 
-#include<windows.h>
-#include <QObject>
-#include <QGraphicsItem>
 #include <QPainter>
 #include <QBrush>
 
+#include "graphcore.h"
+
 namespace GraphCore{
 
-    class VertexCircuit{
+    class VertexStyle{
 
     public:
-        explicit VertexCircuit(double percent = 0, Qt::GlobalColor color = Qt::black);
-        ~VertexCircuit();
-        double getPercent();
-        void setPercent(double value);
-        Qt::GlobalColor getColor();
-        void setColor(Qt::GlobalColor& value);
+        explicit VertexStyle(double radius = 0.,
+                             Qt::GlobalColor backgroundColor = Qt::white,
+                             double circuitPercent = 0,
+                             Qt::GlobalColor circuitColor = Qt::black,
+                             Qt::GlobalColor textColor = Qt::black);
+        ~VertexStyle();
+        double getRadius() const;
+        Qt::GlobalColor getBackgroundColor() const;
+        double getCircuitPercent() const;
+        Qt::GlobalColor getCircuitColor() const;
+        Qt::GlobalColor getTextColor() const;
 
     private:
-        Qt::GlobalColor color;
-        double percent;
+        double radius;
+        Qt::GlobalColor backgroundColor;
+        double circuitPercent;
+        Qt::GlobalColor circuitColor;
+        Qt::GlobalColor textColor;
     };
+
+    class Graph;
 
     class Vertex : public QObject, public QGraphicsItem{
         Q_OBJECT
 
     public:
         //circuit нужно передать по ссылке, но терять инициализатор как-то не хочется
-        explicit Vertex(int x = 0, int y = 0, int radius = 0, VertexCircuit circuit = VertexCircuit(0, Qt::black), Qt::GlobalColor textColor = Qt::black, QObject *parent = nullptr);
+        explicit Vertex(Graph& owner, int x = 0, int y = 0, QObject *parent = nullptr);
         ~Vertex();
-        QString getName();
+        int getX() const;
+        void setX(int value);
+        int getY() const;
+        void setY(int value);
+        const QString getName();
+        const VertexStyle& getStyle() const;
 
     private:
-        GUID id;
+        Graph& graph;
         int x;
         int y;
-        double radius;
-        VertexCircuit circuit;
-        Qt::GlobalColor textColor;
 
         static QRectF generateDescribedSquare(double centerX, double centerY, double radius);
         QRectF boundingRect() const;

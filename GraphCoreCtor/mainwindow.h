@@ -3,7 +3,6 @@
 
 #include <QMainWindow>
 #include <QGraphicsScene>
-#include <vertex.h>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }

@@ -16,15 +16,18 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    edge.cpp \
+    graph.cpp \
     main.cpp \
     mainwindow.cpp \
-    vertex.cpp \
-    vertextable.cpp
+    vertex.cpp
 
 HEADERS += \
+    edge.h \
+    graph.h \
+    graphcore.h \
     mainwindow.h \
-    vertex.h \
-    vertextable.h
+    vertex.h
 
 FORMS += \
     mainwindow.ui
