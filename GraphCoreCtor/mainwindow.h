@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QGraphicsScene>
+#include "graphcore.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -18,6 +19,6 @@ public:
 
 private:
     Ui::MainWindow *ui;
-    QGraphicsScene *graph_scene;
+    GraphCore::Graph* graph;
 };
 #endif // MAINWINDOW_H
