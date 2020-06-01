@@ -18,11 +18,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     graphcore.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    vertex.cpp
 
 HEADERS += \
     graphcore.h \
-    mainwindow.h
+    mainwindow.h \
+    vertex.h
 
 FORMS += \
     mainwindow.ui

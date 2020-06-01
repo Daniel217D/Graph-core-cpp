@@ -10,13 +10,12 @@ MainWindow::MainWindow(QWidget *parent)
     using namespace GraphCore;
 
     ui->setupUi(this);
-    graph = new Graph(this);
-    ui->graphView->addWidget(graph);
+    //graph = new Graph(this);
+    //ui->graphView->addWidget(graph);
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
-    delete graph;
 }
 
