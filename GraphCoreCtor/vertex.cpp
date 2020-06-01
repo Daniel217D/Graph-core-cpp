@@ -47,6 +47,7 @@ namespace GraphCore
     Vertex::Vertex(int centerX, int centerY, VertexStyle* style, QObject *parent)
         : QObject(parent), QGraphicsItem() //FIXME
     {
+        setZValue(10);
         setPos(centerX, centerY);
         this->style = new VertexStyle(20., Qt::white, 10., Qt::blue, Qt::black);
     }
@@ -111,18 +112,20 @@ namespace GraphCore
 
     void Vertex::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
     {
-        this->setPos(mapToScene(event->pos()));
+        auto new_pos = mapToScene(event->pos());
+        setPos(new_pos);
+        positionChanged(new_pos.x(), new_pos.y());
     }
 
     void Vertex::mousePressEvent(QGraphicsSceneMouseEvent *event)
     {
-        this->setCursor(QCursor(Qt::ClosedHandCursor));
+        setCursor(QCursor(Qt::ClosedHandCursor));
         Q_UNUSED(event);
     }
 
     void Vertex::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     {
-        this->setCursor(QCursor(Qt::ArrowCursor));
+        setCursor(QCursor(Qt::ArrowCursor));
         Q_UNUSED(event);
     }
 

@@ -43,6 +43,9 @@ namespace GraphCore
         void setStyle(VertexStyle* value);
         QString getName() const;
 
+    signals:
+        void positionChanged(int x, int y);
+
     private:
         VertexStyle* style;
         QRectF boundingRect() const;

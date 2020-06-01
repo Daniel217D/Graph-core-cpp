@@ -7,11 +7,22 @@ namespace GraphCore{
 
     }
 
-    void Graph::createVertex(int x, int y, VertexStyle *style)
+    Vertex& Graph::createVertex(int x, int y, VertexStyle *style)
     {
         Vertex* vertex = new Vertex(x, y, style);
         addItem(vertex);
         vertexies.append(vertex);
+        return *vertex;
+    }
+
+    Edge& Graph::createEdge(Vertex *first, Vertex *second)
+    {
+        Edge* edge = new Edge(first, second);
+        addItem(edge);
+        first->update();
+        second->update();
+        edges.append(edge);
+        return *edge;
     }
 
     Graph::~Graph()

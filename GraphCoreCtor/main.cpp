@@ -12,7 +12,7 @@ int main(int argc, char *argv[])
     QGraphicsView view(&graph);
 
     graph.setSceneRect(-100, -100, 1100, 1100);
-    graph.createVertex(10, 10, nullptr);
+    graph.createEdge(&graph.createVertex(10, 10, nullptr), &graph.createVertex(50, 50, nullptr));
 
     view.show();
 

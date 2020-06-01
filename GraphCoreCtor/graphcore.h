@@ -1,7 +1,7 @@
 #ifndef GRAPHCORE_H
 #define GRAPHCORE_H
 
-#include "vertex.h"
+#include "edge.h"
 #include <QGraphicsScene>
 #include <QGraphicsSceneMouseEvent>
 
@@ -9,11 +9,12 @@ namespace GraphCore{
 
     class Graph : public QGraphicsScene
     {
-        Q_OBJECT
+        //Q_OBJECT
 
     public:
         explicit Graph(QWidget *parent = nullptr);
-        void createVertex(int x, int y, VertexStyle* style);
+        Vertex& createVertex(int x, int y, VertexStyle* style);
+        Edge& createEdge(Vertex* first, Vertex* second);
         ~Graph();
 
     protected:
@@ -21,7 +22,7 @@ namespace GraphCore{
 
     private:
       QList<Vertex*> vertexies;
-
+      QList<Edge*> edges;
     };
 
 }
