@@ -14,7 +14,7 @@ namespace GraphCore{
     public:
         explicit Graph(QWidget *parent = nullptr);
         Vertex& createVertex(int x, int y, VertexStyle* style);
-        Edge& createEdge(Vertex* first, Vertex* second);
+        Edge& createEdge(Vertex* first, Vertex* second, EdgeStyle* style);
         ~Graph();
 
     protected:
