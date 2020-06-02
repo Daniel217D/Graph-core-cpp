@@ -3,8 +3,6 @@
 namespace GraphCore
 {
 
-
-
     EdgeStyle::EdgeStyle(qreal diameter, Qt::GlobalColor color)
     {
         this->diameter = diameter;
@@ -33,9 +31,13 @@ namespace GraphCore
         this->second = second;
         this->style = style;
         if (first != nullptr)
-            connect(first, &Vertex::positionChanged, this, &Edge::updateLine);
+            connect(first, &Vertex::positionChangedByMouse, this, [&](){
+                update();
+            });
         if (second != nullptr)
-            connect(second, &Vertex::positionChanged, this, &Edge::updateLine);
+            connect(second, &Vertex::positionChangedByMouse, this, [&](){
+                update();
+            });
         if(this->style == nullptr)
            this->style = new EdgeStyle(3, Qt::black);
     }
@@ -53,11 +55,6 @@ namespace GraphCore
     void Edge::setStyle(EdgeStyle *value)
     {
         style = value;
-    }
-
-    void Edge::updateLine()
-    {
-        update();
     }
 
     int Edge::getQuarter() const
@@ -84,9 +81,11 @@ namespace GraphCore
         Q_UNUSED(option);
         Q_UNUSED(widget);
 
+
         QRectF sizes = boundingRect();
         EdgeStyle* ptr_style = getStyle();
         if(ptr_style != nullptr){
+            hide();
             EdgeStyle style = *ptr_style;
 
             painter->setPen(QPen(style.getColor(), style.getDiameter()));
@@ -108,6 +107,7 @@ namespace GraphCore
                     painter->drawLine(0, 0, sizes.width(), sizes.height());
                     break;
             }
+            show();
         }
     }
     

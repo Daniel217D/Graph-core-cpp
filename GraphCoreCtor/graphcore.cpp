@@ -1,3 +1,4 @@
+#include <QCursor>
 #include "graphcore.h"
 
 namespace GraphCore{
@@ -13,12 +14,33 @@ namespace GraphCore{
         for(Vertex* vertex : vertexies){
             delete vertex;
         }
+
+        for(Edge* edge : edges){
+            delete edge;
+        }
     }
 
     Vertex& Graph::createVertex(int x, int y, VertexStyle *style)
     {
         Vertex* vertex = new Vertex(x, y, style);
         addItem(vertex);
+
+        connect(vertex, &Vertex::startPositionChangedByMouse, this, [&](Vertex* sender){
+            sender->setCursor(QCursor(Qt::ClosedHandCursor));
+        });
+
+        connect(vertex, &Vertex::positionChangedByMouse, this, [&](Vertex* sender){
+            if(hasAnotherVertex(sender))
+                sender->setCursor(QCursor(Qt::ForbiddenCursor));
+            else sender->setCursor(QCursor(Qt::ClosedHandCursor));
+        });
+
+        connect(vertex, &Vertex::endPositionChangedByMouse, this, [&](Vertex* sender){
+            if(hasAnotherVertex(sender))
+                sender->returnPositionIfExist();
+            sender->unsetCursor();
+        });
+
         vertexies.append(vertex);
         return *vertex;
     }
@@ -27,8 +49,6 @@ namespace GraphCore{
     {
         Edge* edge = new Edge(first, second, style);
         addItem(edge);
-        first->update();
-        second->update();
         edges.append(edge);
         return *edge;
     }
@@ -42,4 +62,15 @@ namespace GraphCore{
         }
     }
 
+    bool Graph::hasAnotherVertex(const Vertex* vertex)
+    {
+        for(Vertex* element : vertexies){
+            if (element != vertex && element != nullptr && element->getStyle() != nullptr){
+                qreal radius = element->getStyle()->getRadius();
+                if (abs(vertex->x() - element->x()) <= radius && abs(vertex->y() - element->y()) <= radius)
+                    return true;
+            }
+        }
+        return false;
+    }
 }

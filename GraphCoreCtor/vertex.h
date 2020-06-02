@@ -42,12 +42,18 @@ namespace GraphCore
         VertexStyle* getStyle() const;
         void setStyle(VertexStyle* value);
         QString getName() const;
+        void changePositionWithSignal(const int x, const int y);
+        bool returnPositionIfExist();
 
     signals:
-        void positionChanged(int x, int y);
+        void startPositionChangedByMouse(Vertex* sender);
+        void positionChangedByMouse(Vertex* sender, int x, int y);
+        void endPositionChangedByMouse(Vertex* sender);
 
     private:
         VertexStyle* style;
+        QPointF* oldPosition;
+
         QRectF boundingRect() const;
         void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
         void mouseMoveEvent(QGraphicsSceneMouseEvent *event);

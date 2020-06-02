@@ -1,5 +1,4 @@
 #include "vertex.h"
-#include <QCursor>
 #include <QGraphicsSceneMouseEvent>
 
 namespace GraphCore
@@ -49,6 +48,7 @@ namespace GraphCore
     {
         setZValue(10);
         setPos(centerX, centerY);
+        oldPosition = nullptr;
         this->style = style;
         if (this->style == nullptr)
             this->style = new VertexStyle(20., Qt::white, 10., Qt::blue, Qt::black);
@@ -56,7 +56,7 @@ namespace GraphCore
 
     Vertex::~Vertex()
     {
-
+        delete oldPosition;
     }
 
     VertexStyle* Vertex::getStyle() const
@@ -72,6 +72,19 @@ namespace GraphCore
     QString Vertex::getName() const //FIXME
     {
         return QString::number(1);
+    }
+
+    void Vertex::changePositionWithSignal(const int x, const int y){
+        setPos(x, y);
+        positionChangedByMouse(this, x, y);
+    }
+
+    bool Vertex::returnPositionIfExist()
+    {
+        if (oldPosition != nullptr){
+            changePositionWithSignal(oldPosition->x(),oldPosition->y());
+            return true;
+        } else return false;
     }
 
     QRectF Vertex::boundingRect() const
@@ -114,21 +127,24 @@ namespace GraphCore
 
     void Vertex::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
     {
+        Q_UNUSED(event);
         auto new_pos = mapToScene(event->pos());
-        setPos(new_pos);
-        positionChanged(new_pos.x(), new_pos.y());
+        changePositionWithSignal(new_pos.x(), new_pos.y());
     }
 
     void Vertex::mousePressEvent(QGraphicsSceneMouseEvent *event)
     {
-        setCursor(QCursor(Qt::ClosedHandCursor));
         Q_UNUSED(event);
+        oldPosition = new QPointF(x(), y());
+        startPositionChangedByMouse(this);
     }
 
     void Vertex::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     {
-        setCursor(QCursor(Qt::ArrowCursor));
         Q_UNUSED(event);
+        endPositionChangedByMouse(this);
+        delete oldPosition;
+        oldPosition = nullptr;
     }
 
 }

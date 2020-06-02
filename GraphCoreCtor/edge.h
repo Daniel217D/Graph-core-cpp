@@ -31,9 +31,6 @@ namespace GraphCore
         EdgeStyle* getStyle() const;
         void setStyle(EdgeStyle* value);
 
-    private slots:
-        void updateLine();
-
     private:
         Vertex* first;
         Vertex* second;

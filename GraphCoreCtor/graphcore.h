@@ -23,6 +23,8 @@ namespace GraphCore{
     private:
       QList<Vertex*> vertexies;
       QList<Edge*> edges;
+
+      bool hasAnotherVertex(const Vertex* vertex);
     };
 
 }
