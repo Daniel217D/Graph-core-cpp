@@ -21,6 +21,7 @@ namespace GraphCore
         Vertex* first;
         Vertex* second;
 
+        int getQuarter() const;
         QRectF boundingRect() const;
         void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
     };

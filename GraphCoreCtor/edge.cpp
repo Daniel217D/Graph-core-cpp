@@ -22,10 +22,23 @@ namespace GraphCore
         update();
     }
 
+    int Edge::getQuarter() const
+    {
+        if (first->x() <= second->x() && first->y() <= second->y())
+            return 4;
+        else if (first->x() > second->x() && first->y() > second->y())
+            return 2;
+        else if(first->x() <= second->x() && first->y() >= second->y())
+            return 1;
+        else return 3;
+    }
+
     QRectF Edge::boundingRect() const
     {
-        //Желательно переосмыслить...
-        return QRectF(first->x(), first->y(), second->x(), second->y());
+        auto width = abs(first->x() - second->x());
+        auto height = abs(first->y() - second->y());
+
+        return QRectF(0, 0, width, height);
     }
 
     void Edge::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
@@ -36,6 +49,23 @@ namespace GraphCore
         auto sizes = boundingRect();
 
         painter->setPen(QPen(Qt::black, 3));
-        painter->drawLine(sizes.x(), sizes.y(), sizes.width(), sizes.height());
+        switch(getQuarter()){
+            case 1:
+                this->setPos(first->x(), second->y());
+                painter->drawLine(0, sizes.height(), sizes.width(), 0);
+                break;
+            case 2:
+                this->setPos(second->x(), second->y());
+                painter->drawLine(0, 0, sizes.width(), sizes.height());
+                break;
+            case 3:
+                this->setPos(second->x(), first->y());
+                painter->drawLine(sizes.width(), 0, 0, sizes.height());
+                break;
+            case 4:
+                this->setPos(first->x(), first->y());
+                painter->drawLine(0, 0, sizes.width(), sizes.height());
+                break;
+        }
     }
 }

@@ -49,7 +49,9 @@ namespace GraphCore
     {
         setZValue(10);
         setPos(centerX, centerY);
-        this->style = new VertexStyle(20., Qt::white, 10., Qt::blue, Qt::black);
+        this->style = style;
+        if (this->style == nullptr)
+            this->style = new VertexStyle(20., Qt::white, 10., Qt::blue, Qt::black);
     }
 
     Vertex::~Vertex()
