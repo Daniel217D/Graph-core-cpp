@@ -17,14 +17,14 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     edge.cpp \
-    graphcore.cpp \
+    graph.cpp \
     main.cpp \
     mainwindow.cpp \
     vertex.cpp
 
 HEADERS += \
     edge.h \
-    graphcore.h \
+    graph.h \
     mainwindow.h \
     vertex.h
 

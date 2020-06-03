@@ -59,6 +59,8 @@ namespace GraphCore
 
     int Edge::getQuarter() const
     {
+        if (first == nullptr || second == nullptr)
+            return 0;
         if (first->x() <= second->x() && first->y() <= second->y())
             return 4;
         else if (first->x() > second->x() && first->y() > second->y())

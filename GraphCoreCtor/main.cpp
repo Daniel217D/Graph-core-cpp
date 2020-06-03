@@ -2,7 +2,7 @@
 
 #include <QApplication>
 #include <QGraphicsView>
-#include "graphcore.h"
+#include "graph.h"
 
 int main(int argc, char *argv[])
 {

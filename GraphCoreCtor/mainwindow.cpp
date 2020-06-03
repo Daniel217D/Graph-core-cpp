@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-#include "graphcore.h"
+#include "graph.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)

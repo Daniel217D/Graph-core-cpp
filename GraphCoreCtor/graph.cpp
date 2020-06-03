@@ -1,5 +1,5 @@
 #include <QCursor>
-#include "graphcore.h"
+#include "graph.h"
 
 namespace GraphCore{
 
