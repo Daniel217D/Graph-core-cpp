@@ -55,8 +55,19 @@ namespace GraphCore
     void Edge::setStyle(EdgeStyle *value)
     {
         style = value;
+        update();
     }
-
+    
+    Vertex* Edge::getFirst() const
+    {
+        return first;
+    }
+    
+    Vertex* Edge::getSecond() const
+    {
+        return second;
+    }
+    
     int Edge::getQuarter() const
     {
         if (first == nullptr || second == nullptr)

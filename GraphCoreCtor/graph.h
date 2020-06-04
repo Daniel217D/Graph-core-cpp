@@ -28,6 +28,11 @@ namespace GraphCore
          */
         Vertex& createVertex(int x, int y, VertexStyle* style);
         /*!
+         * \brief Удаляет вершину и все зависящие от нее ребра на графа.
+         * \param vertex Вершина.
+         */
+        void removeVertex(Vertex& vertex);
+        /*!
          * \brief Создает ребро и добавляет его на граф.
          * \param first Вершина 1.
          * \param second Вершина 2.
@@ -36,16 +41,21 @@ namespace GraphCore
          */
         Edge& createEdge(Vertex* first, Vertex* second, EdgeStyle* style);
         /*!
+         * \brief Удаляет ребро на граф.
+         * \param edge Ребро.
+         */
+        void removeEdge(Edge& edge);
+        /*!
          * \brief Уничтожает граф.
          */
         ~Graph();
 
     protected:
       /*!
-       * \brief Действие при нажатии кнопки мыши.
+       * \brief Действие при двойном нажатии кнопки мыши.
        * \param event Информация о событии.
        */
-      void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
+      void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event) override;
 
     private:
       /*!
@@ -58,10 +68,28 @@ namespace GraphCore
       QList<Edge*> edges;
 
       /*!
-       * \brief Возвращает true, если вершина находится в радиусе других вершин.
+       * \brief Возвращает указатель на первую рядом лежащую веришну, если vertex находится в ее радиусе. Либо NULL, если в радиусе нет ни одной такой вершины.
        * \param vertex Вершина.
        */
-      bool hasAnotherVertex(const Vertex* vertex);
+      Vertex* getAnotherVertex(const Vertex* vertex);
+      /*!
+       * \brief Возвращает указатель на первую вершину, для которой координаты x, y вписаны в радиус.
+       * \param x Координата x.
+       * \param y Координата y.
+       */
+      Vertex* getVertex(const int x, const int y);
+
+      /*!
+       * \brief Возвращает указатели на все ребра, соединенные с вершиной.
+       * \param vertex Вершина.
+       * \return Список указателей на ребра.
+       */
+      QList<Edge*> findOwnedEdges(Vertex& vertex);
+
+      /*!
+       * \brief Переименовывает все вершины графа.
+       */
+      void updateVertexNames();
     };
 
 }

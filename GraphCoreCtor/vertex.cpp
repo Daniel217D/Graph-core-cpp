@@ -43,13 +43,14 @@ namespace GraphCore
         return radius;
     }
 
-    Vertex::Vertex(int centerX, int centerY, VertexStyle* style, QObject *parent)
+    Vertex::Vertex(int centerX, int centerY, VertexStyle* style, QString name, QObject *parent)
         : QObject(parent), QGraphicsItem() //FIXME
     {
         setZValue(10);
         setPos(centerX, centerY);
         oldPosition = nullptr;
         this->style = style;
+        this->name = name;
         if (this->style == nullptr)
             this->style = new VertexStyle(20., Qt::white, 10., Qt::blue, Qt::black);
     }
@@ -67,11 +68,18 @@ namespace GraphCore
     void Vertex::setStyle(VertexStyle *value)
     {
         style = value;
+        update();
     }
 
-    QString Vertex::getName() const //FIXME
+    QString Vertex::getName() const
     {
-        return QString::number(1);
+        return name;
+    }
+
+    void Vertex::setName(const QString& value)
+    {
+        name = value;
+        update();
     }
 
     void Vertex::changePositionWithSignal(const int x, const int y){
@@ -128,23 +136,36 @@ namespace GraphCore
     void Vertex::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
     {
         Q_UNUSED(event);
-        auto new_pos = mapToScene(event->pos());
-        changePositionWithSignal(new_pos.x(), new_pos.y());
+        if (oldPosition){
+            auto new_pos = mapToScene(event->pos());
+            changePositionWithSignal(new_pos.x(), new_pos.y());
+        }
     }
 
     void Vertex::mousePressEvent(QGraphicsSceneMouseEvent *event)
     {
         Q_UNUSED(event);
-        oldPosition = new QPointF(x(), y());
-        startPositionChangedByMouse(this);
+        if(event->button() == Qt::LeftButton){
+            oldPosition = new QPointF(x(), y());
+            startPositionChangedByMouse(this);
+            return;
+        } if(event->button() == Qt::RightButton){
+            if (oldPosition)
+                mouseReleaseEvent(event);
+            return;
+        }
+
+        oldPosition = nullptr;
     }
 
     void Vertex::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     {
         Q_UNUSED(event);
-        endPositionChangedByMouse(this);
-        delete oldPosition;
-        oldPosition = nullptr;
+        if(oldPosition){
+            endPositionChangedByMouse(this);
+            delete oldPosition;
+            oldPosition = nullptr;
+        }
     }
 
 }

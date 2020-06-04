@@ -98,6 +98,7 @@ namespace GraphCore
         explicit Vertex(int centerX = 0,
                         int centerY = 0,
                         VertexStyle* style = nullptr,
+                        QString name = "",
                         QObject *parent = nullptr);
         /*!
          * Уничтожает вершину.
@@ -109,7 +110,7 @@ namespace GraphCore
          */
         VertexStyle* getStyle() const;
         /*!
-         * \brief Устанавливает стиль вершины.
+         * \brief Устанавливает стиль вершины и вызывает ее перерисовку.
          * \param value Стиль вершины.
          */
         void setStyle(VertexStyle* value);
@@ -118,6 +119,11 @@ namespace GraphCore
          * \return Имя вершины.
          */
         QString getName() const;
+        /*!
+         * \brief Устанавливает имя вершины и вызывает ее перерисовку.
+         * \param Имя вершины.
+         */
+        void setName(const QString& value);
         /*!
          * \brief Меняет местоположение вершины и вызывает positionChangedByMouse.
          * \param x Координата центра вершины x.
@@ -157,6 +163,11 @@ namespace GraphCore
          * \brief Позиция до перемещения (устанавливается в mousePressEvent, очищается mouseReleaseEvent).
          */
         QPointF* oldPosition;
+        /*!
+         * \brief Имя вершины.
+         */
+        QString name;
+
         /*!
          * \brief Возвращает собственную область рисования.
          * \return Область рисования.

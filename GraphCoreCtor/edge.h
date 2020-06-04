@@ -74,10 +74,20 @@ namespace GraphCore
          */
         EdgeStyle* getStyle() const;
         /*!
-         * \brief Устанавливает стиль ребра.
+         * \brief Устанавливает стиль ребра и вызывает его перерисовку.
          * \param value Стиль ребра.
          */
         void setStyle(EdgeStyle* value);
+        /*!
+         * \brief Возвращает первую вершину ребра.
+         * \return Первая вершина ребра.
+         */
+        Vertex* getFirst() const;
+        /*!
+         * \brief Возвращает вторую вершину ребра.
+         * \return Вторая вершина ребра.
+         */
+        Vertex* getSecond() const;
 
     private:
         /*!
