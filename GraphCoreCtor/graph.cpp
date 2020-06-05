@@ -31,6 +31,7 @@ namespace GraphCore{
             if(getAnotherVertex(sender))
                 sender->setCursor(QCursor(Qt::ForbiddenCursor));
             else sender->setCursor(QCursor(Qt::ClosedHandCursor));
+            update(); //FIXME
         });
 
         connect(vertex, &Vertex::endPositionChangedByMouse, this, [&](Vertex* sender){

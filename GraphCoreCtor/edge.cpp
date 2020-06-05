@@ -1,4 +1,5 @@
 #include "edge.h"
+#include "QtMath"
 
 namespace GraphCore
 {
@@ -89,38 +90,59 @@ namespace GraphCore
         return QRectF(0, 0, width, height);
     }
 
+    void printArrow(QPainter *painter, float startX, float startY, float endX, float endY)
+    {
+        float lons, angle;
+
+        const float ostr = 0.45;        // острота стрелки
+
+        painter->drawLine(startX, startY, endX, endY);
+
+        lons = 10;     // длина лепестков % от длины стрелки
+        angle = atan2(endY - startY, endX - startX);             // угол наклона линии
+
+        for(int i = -1; i < 2; i += 2){
+            painter->drawLine(endX,
+                              endY,
+                              endX - lons * cos(angle + i * ostr),
+                              endY - lons * sin(angle + i * ostr));
+        }
+    }
+
     void Edge::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
     {
         Q_UNUSED(option);
         Q_UNUSED(widget);
 
-
         QRectF sizes = boundingRect();
         EdgeStyle* ptr_style = getStyle();
         if(ptr_style != nullptr){
-            hide();
             EdgeStyle style = *ptr_style;
-
             painter->setPen(QPen(style.getColor(), style.getDiameter()));
+            qreal xEnd = sizes.width();
+            qreal yEnd = sizes.height();
             switch(getQuarter()){
                 case 1:
                     this->setPos(first->x(), second->y());
-                    painter->drawLine(0, sizes.height(), sizes.width(), 0);
+                    printArrow(painter, 0, yEnd, xEnd, 0); //F->S
+                    printArrow(painter, xEnd, 0, 0, yEnd); //S->F
                     break;
                 case 2:
                     this->setPos(second->x(), second->y());
-                    painter->drawLine(0, 0, sizes.width(), sizes.height());
+                    printArrow(painter, xEnd, yEnd, 0, 0); //F->S
+                    printArrow(painter, 0, 0, xEnd, yEnd); //S->F
                     break;
                 case 3:
                     this->setPos(second->x(), first->y());
-                    painter->drawLine(sizes.width(), 0, 0, sizes.height());
+                    printArrow(painter, xEnd, 0, 0, yEnd); //F->S
+                    printArrow(painter, 0, yEnd, xEnd, 0); //S->F
                     break;
                 case 4:
                     this->setPos(first->x(), first->y());
-                    painter->drawLine(0, 0, sizes.width(), sizes.height());
+                    printArrow(painter, 0, 0, xEnd, yEnd);  //F->S
+                    printArrow(painter, xEnd, yEnd, 0, 0);  //S->F
                     break;
             }
-            show();
         }
     }
     
