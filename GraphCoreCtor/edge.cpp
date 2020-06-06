@@ -4,10 +4,12 @@
 namespace GraphCore
 {
 
-    EdgeStyle::EdgeStyle(qreal diameter, Qt::GlobalColor color)
+    EdgeStyle::EdgeStyle(qreal diameter, Qt::GlobalColor color, qreal arrowLength, qreal arrowAngle)
     {
         this->diameter = diameter;
         this->color = color;
+        this->arrowLength = arrowLength;
+        this->arrowAngle = arrowAngle;
     }
 
     EdgeStyle::~EdgeStyle()
@@ -25,22 +27,36 @@ namespace GraphCore
         return color;
     }
 
-    Edge::Edge(Vertex *first, Vertex *second, EdgeStyle* style, QObject *parent)
-        : QObject(parent), QGraphicsItem() //FIXME
+    qreal EdgeStyle::getArrowLength() const
+    {
+        return arrowLength;
+    }
+
+    qreal EdgeStyle::getArrowAngle() const
+    {
+        return arrowAngle;
+    }
+
+    Edge::Edge(Vertex *first, Vertex *second, EdgeDirection direction, EdgeStyle* style, QObject *parent)
+        : QObject(parent), QGraphicsItem()
     {
         this->first = first;
         this->second = second;
+        this->direction = direction;
         this->style = style;
+
         if (first != nullptr)
             connect(first, &Vertex::positionChangedByMouse, this, [&](){
                 update();
             });
+
         if (second != nullptr)
             connect(second, &Vertex::positionChangedByMouse, this, [&](){
                 update();
             });
+
         if(this->style == nullptr)
-           this->style = new EdgeStyle(3, Qt::black);
+           this->style = new EdgeStyle(3, Qt::black, 10, 0.45); //FIXME
     }
 
     Edge::~Edge()
@@ -68,6 +84,17 @@ namespace GraphCore
     {
         return second;
     }
+
+    EdgeDirection Edge::getDirection() const
+    {
+        return direction;
+    }
+
+    void Edge::setDirection(const EdgeDirection &value)
+    {
+        direction = value;
+        update();
+    }
     
     int Edge::getQuarter() const
     {
@@ -90,25 +117,6 @@ namespace GraphCore
         return QRectF(0, 0, width, height);
     }
 
-    void printArrow(QPainter *painter, float startX, float startY, float endX, float endY)
-    {
-        float lons, angle;
-
-        const float ostr = 0.45;        // острота стрелки
-
-        painter->drawLine(startX, startY, endX, endY);
-
-        lons = 10;     // длина лепестков % от длины стрелки
-        angle = atan2(endY - startY, endX - startX);             // угол наклона линии
-
-        for(int i = -1; i < 2; i += 2){
-            painter->drawLine(endX,
-                              endY,
-                              endX - lons * cos(angle + i * ostr),
-                              endY - lons * sin(angle + i * ostr));
-        }
-    }
-
     void Edge::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
     {
         Q_UNUSED(option);
@@ -119,31 +127,49 @@ namespace GraphCore
         if(ptr_style != nullptr){
             EdgeStyle style = *ptr_style;
             painter->setPen(QPen(style.getColor(), style.getDiameter()));
-            qreal xEnd = sizes.width();
-            qreal yEnd = sizes.height();
-            switch(getQuarter()){
-                case 1:
-                    this->setPos(first->x(), second->y());
-                    printArrow(painter, 0, yEnd, xEnd, 0); //F->S
-                    printArrow(painter, xEnd, 0, 0, yEnd); //S->F
-                    break;
-                case 2:
-                    this->setPos(second->x(), second->y());
-                    printArrow(painter, xEnd, yEnd, 0, 0); //F->S
-                    printArrow(painter, 0, 0, xEnd, yEnd); //S->F
-                    break;
-                case 3:
-                    this->setPos(second->x(), first->y());
-                    printArrow(painter, xEnd, 0, 0, yEnd); //F->S
-                    printArrow(painter, 0, yEnd, xEnd, 0); //S->F
-                    break;
-                case 4:
-                    this->setPos(first->x(), first->y());
-                    printArrow(painter, 0, 0, xEnd, yEnd);  //F->S
-                    printArrow(painter, xEnd, yEnd, 0, 0);  //S->F
-                    break;
+
+            int quarter = getQuarter() - 1; //TODO: Проверка на 0 (не хватает какой-то вершины)
+            bool firstBit = quarter & 1;
+            bool secondBit = quarter >> 1;
+
+            qreal startX = firstBit ^ secondBit ? sizes.width() : 0;
+            qreal startY = secondBit ? 0 : sizes.height();
+            qreal endX = firstBit ^ secondBit ? 0 : sizes.width();
+            qreal endY = secondBit ? sizes.height() : 0;
+
+            this->setPos(firstBit ^ secondBit ? second->x() : first->x(),
+                         secondBit ? first->y() : second->y());
+
+            painter->drawLine(startX, startY, endX, endY);
+
+            if (getDirection() == EdgeDirection::All || getDirection() == EdgeDirection::ToSecond)
+            {
+                double angle = atan2(endY - startY, endX - startX);
+                for(int i = -1; i < 2; i += 2)
+                    painter->drawLine(endX,
+                                      endY,
+                                      endX - style.getArrowLength() * cos(angle + i * style.getArrowAngle()),
+                                      endY - style.getArrowLength() * sin(angle + i * style.getArrowAngle()));
+            }
+
+            if (getDirection() == EdgeDirection::All || getDirection() == EdgeDirection::ToFirst){
+            double angle = atan2(startY - endY, startX - endX);
+                for(int i = -1; i < 2; i += 2)
+                    painter->drawLine(startX,
+                                      startY,
+                                      startX - style.getArrowLength() * cos(angle + i * style.getArrowAngle()),
+                                      startY - style.getArrowLength() * sin(angle + i * style.getArrowAngle()));
             }
         }
+    }
+
+    void Edge::mousePressEvent(QGraphicsSceneMouseEvent *event)
+    {
+        //FIXME: Добавить определение попал ли курсор пользователя на линию или нет
+        if(event->button() == Qt::LeftButton)
+            needDirectionChanged(this);
+        else if (event->button() == Qt::RightButton)
+            needDestruction(this);
     }
     
 }

@@ -19,10 +19,10 @@ int main(int argc, char *argv[])
     auto v2 = &graph.createVertex(0, 0, nullptr);
     auto v3 = &graph.createVertex(200, 200, nullptr);
     auto v4 = &graph.createVertex(0, 200, nullptr);
-    graph.createEdge(center, v1, nullptr);
-    graph.createEdge(center, v2, nullptr);
-    graph.createEdge(center, v3, nullptr);
-    graph.createEdge(center, v4, nullptr);
+    graph.createEdge(center, v1, EdgeDirection::All, nullptr);
+    graph.createEdge(center, v2, EdgeDirection::All, nullptr);
+    graph.createEdge(center, v3, EdgeDirection::All, nullptr);
+    graph.createEdge(center, v4, EdgeDirection::All, nullptr);
     view.show();
 
     //MainWindow w;

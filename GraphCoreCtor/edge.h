@@ -6,6 +6,16 @@
 namespace GraphCore
 {
     /*!
+     * \brief Направление ребра.
+     */
+    enum class EdgeDirection
+    {
+        ToFirst, //Стрелка направлена в первую вершину
+        ToSecond, //Стрелка направлена во вторую вершину
+        All //Стрелка направлена в обе вершины
+    };
+
+    /*!
      * \brief Стиль ребра.
      */
     class EdgeStyle
@@ -18,7 +28,9 @@ namespace GraphCore
          * \param color Цвет линии.
          */
         explicit EdgeStyle(qreal diameter = 0.,
-                             Qt::GlobalColor color = Qt::black);
+                             Qt::GlobalColor color = Qt::black,
+                             qreal arrowLength = 0.,
+                             qreal arrowAngle = 0.);
         /*!
          * \brief Уничтожает стиль ребра.
          */
@@ -33,6 +45,16 @@ namespace GraphCore
          * \return Цвет линии.
          */
         inline Qt::GlobalColor getColor() const;
+        /*!
+         * \brief Возвращает длину лепестков стрелки.
+         * \return Длина лепестков стрелки.
+         */
+        inline qreal getArrowLength() const;
+        /*!
+         * \brief Возвращает угол между лепестками стрелки.
+         * \return Угол между лепестками стрелки.
+         */
+        inline qreal getArrowAngle() const;
 
     private:
         /*!
@@ -43,6 +65,14 @@ namespace GraphCore
          * \brief Цвет линии.
          */
         Qt::GlobalColor color;
+        /*!
+         * \brief Длина лепестков стрелки.
+         */
+        qreal arrowLength;
+        /*!
+         * \brief Угол между лепестками стрелки.
+         */
+        qreal arrowAngle;
     };
 
     /*!
@@ -62,12 +92,23 @@ namespace GraphCore
          */
         explicit Edge(Vertex* first,
                       Vertex* second = nullptr,
+                      EdgeDirection direction = EdgeDirection::All,
                       EdgeStyle* style = nullptr,
                       QObject *parent = nullptr);
         /*!
          * \brief Уничтожает ребро.
          */
         ~Edge();
+        /*!
+         * \brief Возвращает направление стрелок ребра.
+         * \return Направление стрелок.
+         */
+        inline EdgeDirection getDirection() const;
+        /*!
+         * \brief Устанавливает направление стрелок ребра и вызывает его перерисовку.
+         * \param value Направление стрелок.
+         */
+        void setDirection(const EdgeDirection &value);
         /*!
          * \brief Возвращает стиль ребра.
          * \return Стиль ребра.
@@ -89,6 +130,10 @@ namespace GraphCore
          */
         Vertex* getSecond() const;
 
+    signals:
+        void needDirectionChanged(Edge* sender);
+        void needDestruction(Edge* sender);
+
     private:
         /*!
          * \brief Первая вершина.
@@ -98,6 +143,10 @@ namespace GraphCore
          * \brief Вторая вершина.
          */
         Vertex* second;
+        /*!
+         * \brief Направление стрелок ребра.
+         */
+        EdgeDirection direction;
         /*!
          * \brief Стиль ребра.
          */
@@ -120,6 +169,11 @@ namespace GraphCore
          * \param widget Виджет.
          */
         void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+        /*!
+         * \brief Действие при нажатии кнопки мыши.
+         * \param event Информация о событии.
+         */
+        void mousePressEvent(QGraphicsSceneMouseEvent *event);
     };
 
 }

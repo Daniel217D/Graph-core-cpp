@@ -1,5 +1,4 @@
 #include "vertex.h"
-#include <QGraphicsSceneMouseEvent>
 
 namespace GraphCore
 {
@@ -44,15 +43,16 @@ namespace GraphCore
     }
 
     Vertex::Vertex(int centerX, int centerY, VertexStyle* style, QString name, QObject *parent)
-        : QObject(parent), QGraphicsItem() //FIXME
+        : QObject(parent), QGraphicsItem()
     {
         setZValue(-10);
         setPos(centerX, centerY);
         oldPosition = nullptr;
         this->style = style;
         this->name = name;
+
         if (this->style == nullptr)
-            this->style = new VertexStyle(20., Qt::white, 10., Qt::blue, Qt::black);
+            this->style = new VertexStyle(20., Qt::white, 10., Qt::blue, Qt::black);  //FIXME
     }
 
     Vertex::~Vertex()
@@ -117,7 +117,6 @@ namespace GraphCore
 
             qreal inside_radius;
             if(style.getCircuitPercent() > 0){
-                //Рисуем точку с контуром
                 painter->setBrush(style.getCircuitColor());
                 painter->drawEllipse(boundingRect());
                 inside_radius = style.getRadius() * (100. - style.getCircuitPercent()) / 100.;

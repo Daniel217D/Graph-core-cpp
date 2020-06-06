@@ -6,7 +6,7 @@ namespace GraphCore{
     Graph::Graph(QWidget *parent)
     {
         Q_UNUSED(parent);
-
+        isOriented = true; //FIXME
     }
 
     Graph::~Graph()
@@ -54,10 +54,21 @@ namespace GraphCore{
         updateVertexNames();
     }
 
-    Edge& Graph::createEdge(Vertex *first, Vertex *second, EdgeStyle* style)
+    Edge& Graph::createEdge(Vertex *first, Vertex *second, EdgeDirection direction, EdgeStyle* style)
     {
-        Edge* edge = new Edge(first, second, style);
+        Edge* edge = new Edge(first, second, direction, style);
         addItem(edge);
+
+        connect(edge, &Edge::needDirectionChanged, this, [&](Edge* sender){
+            if (isOriented){
+                sender->setDirection(static_cast<EdgeDirection>((static_cast<int>(sender->getDirection()) + 1) % 3));
+            }
+        });
+
+        connect(edge, &Edge::needDestruction, this, [&](Edge* sender){
+            removeEdge(*sender);
+        });
+
         edges.append(edge);
         return *edge;
     }

@@ -4,6 +4,8 @@
 #include <QObject>
 #include <QPainter>
 #include <QGraphicsItem>
+#include <QGraphicsScene>
+#include <QGraphicsSceneMouseEvent>
 
 namespace GraphCore
 {
@@ -24,7 +26,7 @@ namespace GraphCore
          */
         explicit VertexStyle(qreal radius = 0.,
                              Qt::GlobalColor backgroundColor = Qt::white,
-                             qreal circuitPercent = 0,
+                             qreal circuitPercent = 0.,
                              Qt::GlobalColor circuitColor = Qt::black,
                              Qt::GlobalColor textColor = Qt::black);
         /*!

@@ -2,8 +2,6 @@
 #define GRAPHCORE_H
 
 #include "edge.h"
-#include <QGraphicsScene>
-#include <QGraphicsSceneMouseEvent>
 
 namespace GraphCore
 {
@@ -36,10 +34,11 @@ namespace GraphCore
          * \brief Создает ребро и добавляет его на граф.
          * \param first Вершина 1.
          * \param second Вершина 2.
+         * \param direction Направление стрелок ребра.
          * \param style Стиль ребра.
          * \return Ссылку на созданное ребро.
          */
-        Edge& createEdge(Vertex* first, Vertex* second, EdgeStyle* style);
+        Edge& createEdge(Vertex* first, Vertex* second, EdgeDirection direction, EdgeStyle* style);
         /*!
          * \brief Удаляет ребро на граф.
          * \param edge Ребро.
@@ -58,6 +57,10 @@ namespace GraphCore
       void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event) override;
 
     private:
+      /*!
+       * \brief Указывает, является ли граф ориентированным.
+       */
+      bool isOriented;
       /*!
        * \brief Список вершин.
        */
@@ -78,14 +81,12 @@ namespace GraphCore
        * \param y Координата y.
        */
       Vertex* getVertex(const int x, const int y);
-
       /*!
        * \brief Возвращает указатели на все ребра, соединенные с вершиной.
        * \param vertex Вершина.
        * \return Список указателей на ребра.
        */
       QList<Edge*> findOwnedEdges(Vertex& vertex);
-
       /*!
        * \brief Переименовывает все вершины графа.
        */
