@@ -165,11 +165,19 @@ namespace GraphCore
 
     void Edge::mousePressEvent(QGraphicsSceneMouseEvent *event)
     {
-        //FIXME: Добавить определение попал ли курсор пользователя на линию или нет
-        if(event->button() == Qt::LeftButton)
-            needDirectionChanged(this);
-        else if (event->button() == Qt::RightButton)
-            needDestruction(this);
+        if (isLine(event->pos().x(), event->pos().y())){
+            if(event->button() == Qt::LeftButton)
+                needDirectionChanged(this);
+            else if (event->button() == Qt::RightButton)
+                needDestruction(this);
+        }
+    }
+
+    bool Edge::isLine(const int x, const int y)
+    {
+        auto realCoords = mapToScene(QPointF(x, y));
+        auto expectedY = (realCoords.x() - first->x()) * (second->y() - first->y()) / (second->x() - first->x()) + first->y();
+        return abs(expectedY  - realCoords.y()) <= style->getDiameter();
     }
     
 }

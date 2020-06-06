@@ -174,6 +174,12 @@ namespace GraphCore
          * \param event Информация о событии.
          */
         void mousePressEvent(QGraphicsSceneMouseEvent *event);
+        /*!
+         * \brief Возвращает true, если координаты x, y попадают на линию.
+         * \param x Координата x.
+         * \param y Координата y.
+         */
+        bool isLine(const int x, const int y);
     };
 
 }
