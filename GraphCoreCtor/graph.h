@@ -45,6 +45,12 @@ namespace GraphCore
          */
         void removeEdge(Edge& edge);
         /*!
+         * \brief Создает квадратную матрицу смежности в динамической памяти по текущему состоянию графа.
+         * \param matrix Квадратная матрица смежности.
+         * \param length Длина квадратной матрицы.
+         */
+        void createAdjacencyMatrix(bool**& matrix, int& length);
+        /*!
          * \brief Уничтожает граф.
          */
         ~Graph();

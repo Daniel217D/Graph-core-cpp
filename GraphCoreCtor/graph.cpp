@@ -80,6 +80,30 @@ namespace GraphCore{
         removeItem(&edge);
     }
 
+    void Graph::createAdjacencyMatrix(bool**& matrix, int& length)
+    {
+        QVector<Vertex*> vertexies = this->vertexies.toVector();
+        length = vertexies.size();
+
+        matrix = new bool*[length];
+        for(int i = 0; i < length; ++i){
+            matrix[i] = new bool[length];
+            memset(matrix[i], 0, length * sizeof(bool));
+        }
+
+        for(int i = 0; i < length; ++i)
+            for(Edge* edge : edges)
+                if(vertexies[i] == edge->getFirst()
+                        && (edge->getDirection() == EdgeDirection::All || edge->getDirection() == EdgeDirection::ToSecond)){
+                   int j = vertexies.indexOf(edge->getSecond());
+                   matrix[i][j] = true;
+                } else if (vertexies[i] == edge->getSecond()
+                           && (edge->getDirection() == EdgeDirection::All || edge->getDirection() == EdgeDirection::ToFirst)){
+                    int j = vertexies.indexOf(edge->getFirst());
+                    matrix[i][j] = true;
+                }
+    }
+
     void Graph::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
     {
         QGraphicsScene::mouseDoubleClickEvent(event);

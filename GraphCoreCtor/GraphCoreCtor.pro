@@ -18,6 +18,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     edge.cpp \
     graph.cpp \
+    graphstability.cpp \
     main.cpp \
     mainwindow.cpp \
     vertex.cpp
@@ -25,6 +26,7 @@ SOURCES += \
 HEADERS += \
     edge.h \
     graph.h \
+    graphstability.h \
     mainwindow.h \
     vertex.h
 

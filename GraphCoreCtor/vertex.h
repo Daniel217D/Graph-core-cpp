@@ -7,6 +7,7 @@
 #include <QGraphicsScene>
 #include <QGraphicsSceneMouseEvent>
 #include <QDebug>
+#include <QVector>
 
 namespace GraphCore
 {
