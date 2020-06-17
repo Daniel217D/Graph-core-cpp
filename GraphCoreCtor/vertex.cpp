@@ -45,7 +45,7 @@ namespace GraphCore
     Vertex::Vertex(int centerX, int centerY, VertexStyle* style, QString name, QObject *parent)
         : QObject(parent), QGraphicsItem()
     {
-        setZValue(-10);
+        setZValue(10);
         setPos(centerX, centerY);
         oldPosition = nullptr;
         this->style = style;

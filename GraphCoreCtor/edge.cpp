@@ -117,6 +117,11 @@ namespace GraphCore
         return QRectF(0, 0, width, height);
     }
 
+    qreal Edge::getTiltAngle() const
+    {
+        return (second->y() - first->y()) / (second->x() - first->x());
+    }
+
     void Edge::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
     {
         Q_UNUSED(option);
@@ -124,18 +129,28 @@ namespace GraphCore
 
         QRectF sizes = boundingRect();
         EdgeStyle* ptr_style = getStyle();
+
         if(ptr_style != nullptr){
             EdgeStyle style = *ptr_style;
+            painter->setRenderHint(QPainter::Antialiasing, true);
             painter->setPen(QPen(style.getColor(), style.getDiameter()));
 
             int quarter = getQuarter() - 1; //TODO: Проверка на 0 (не хватает какой-то вершины)
             bool firstBit = quarter & 1;
             bool secondBit = quarter >> 1;
 
-            qreal startX = firstBit ^ secondBit ? sizes.width() : 0;
-            qreal startY = secondBit ? 0 : sizes.height();
-            qreal endX = firstBit ^ secondBit ? 0 : sizes.width();
-            qreal endY = secondBit ? sizes.height() : 0;
+            QPointF touchPointStart = getTouchPoint(first->getStyle()->getRadius());
+            qreal edgeStartX = firstBit ^ secondBit ? touchPointStart.x() : -touchPointStart.x();
+            qreal edgeStartY = firstBit ^ secondBit ? -touchPointStart.y() : touchPointStart.y();
+
+            QPointF touchPointEnd = getTouchPoint(second->getStyle()->getRadius());
+            qreal edgeEndX = firstBit ^ secondBit ? -touchPointEnd.x() : touchPointEnd.x();
+            qreal edgeEndY = firstBit ^ secondBit ? touchPointEnd.y() : -touchPointEnd.y();
+
+            qreal startX = firstBit ^ secondBit ? sizes.width() + edgeStartX : 0 + edgeStartX;
+            qreal startY = secondBit ? 0 + edgeStartY : sizes.height() + edgeStartY;
+            qreal endX = firstBit ^ secondBit ? 0 + edgeEndX : sizes.width() + edgeEndX;
+            qreal endY = secondBit ? sizes.height() + edgeEndY : 0 + edgeEndY;
 
             this->setPos(firstBit ^ secondBit ? second->x() : first->x(),
                          secondBit ? first->y() : second->y());
@@ -176,8 +191,28 @@ namespace GraphCore
     bool Edge::isLine(const int x, const int y)
     {
         auto realCoords = mapToScene(QPointF(x, y));
-        auto expectedY = (realCoords.x() - first->x()) * (second->y() - first->y()) / (second->x() - first->x()) + first->y();
-        return abs(expectedY  - realCoords.y()) <= style->getDiameter();
+        qreal k = getTiltAngle();
+        qreal b = first->y() - k * first->x();
+        return abs((k * realCoords.x() + b)  - realCoords.y()) <= style->getDiameter();
+    }
+
+    QPointF Edge::getTouchPoint(qreal radix){
+         //Прямая проходящая через вершины (в общем виде)
+         qreal a = getTiltAngle();
+         const qreal b = -1;
+         const qreal c = 0;
+
+         if (a != INFINITY && a != -INFINITY){
+             //Расстояние точек пересечения до ближайшей к центру окружности точки
+             qreal d = sqrt(radix * radix - (c * c / (a * a + b * b)));
+
+             //Точки пересечения
+             qreal mult = sqrt(d * d / (a * a + b * b));
+             qreal x = b * mult;
+             qreal y = a * mult;
+
+             return QPointF(x, y);
+         } else return QPointF(0, a > 0 ? radix : -radix);
     }
     
 }

@@ -103,7 +103,7 @@ namespace GraphCore
          * \brief Возвращает направление стрелок ребра.
          * \return Направление стрелок.
          */
-        inline EdgeDirection getDirection() const;
+        EdgeDirection getDirection() const;
         /*!
          * \brief Устанавливает направление стрелок ребра и вызывает его перерисовку.
          * \param value Направление стрелок.
@@ -180,6 +180,17 @@ namespace GraphCore
          * \param y Координата y.
          */
         bool isLine(const int x, const int y);
+        /*!
+         * \brief Возвращает коеффициент угла наклона.
+         * \return Коеффициент угла наклона
+         */
+        inline qreal getTiltAngle() const;
+        /*!
+         * \brief Возвращает точку касания относительно центра круга радиусом radix.
+         * \param radix Радиус круга.
+         * \return Точка касания
+         */
+        QPointF getTouchPoint(qreal radix);
     };
 
 }

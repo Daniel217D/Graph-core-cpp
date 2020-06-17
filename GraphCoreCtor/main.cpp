@@ -15,16 +15,6 @@ int main(int argc, char *argv[])
 
     graph.setSceneRect(-100, -100, 1100, 1100);
 
-    /*auto center = &graph.createVertex(100, 100, new VertexStyle(20., Qt::white, 10., Qt::red, Qt::black));
-    auto v1 = &graph.createVertex(200, 0, nullptr);
-    auto v2 = &graph.createVertex(0, 0, nullptr);
-    auto v3 = &graph.createVertex(200, 200, nullptr);
-    auto v4 = &graph.createVertex(0, 200, nullptr);
-    graph.createEdge(center, v1, EdgeDirection::All, nullptr);
-    graph.createEdge(center, v2, EdgeDirection::All, nullptr);
-    graph.createEdge(center, v3, EdgeDirection::All, nullptr);
-    graph.createEdge(center, v4, EdgeDirection::All, nullptr);*/
-
     auto v1 = &graph.createVertex(-32, -23, nullptr);
     auto v2 = &graph.createVertex(102, -27, nullptr);
     auto v3 = &graph.createVertex(95, 231, nullptr);
@@ -69,6 +59,16 @@ int main(int argc, char *argv[])
 
     //10
     graph.createEdge(v10, v4, EdgeDirection::ToSecond, nullptr);
+
+    /*auto center = &graph.createVertex(100, 100, new VertexStyle(30., Qt::white, 10., Qt::red, Qt::black));
+    auto v1 = &graph.createVertex(200, 0, nullptr);
+    auto v2 = &graph.createVertex(0, 0, nullptr);
+    auto v3 = &graph.createVertex(200, 200, nullptr);
+    auto v4 = &graph.createVertex(0, 200, nullptr);
+    graph.createEdge(center, v1, EdgeDirection::All, nullptr);
+    graph.createEdge(center, v2, EdgeDirection::All, nullptr);
+    graph.createEdge(center, v3, EdgeDirection::All, nullptr);
+    graph.createEdge(center, v4, EdgeDirection::All, nullptr);*/
 
     view.show();
     graph.update();
