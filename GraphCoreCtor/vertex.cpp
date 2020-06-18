@@ -37,7 +37,7 @@ namespace GraphCore
         return backgroundColor;
     }
 
-    inline qreal VertexStyle::getRadius() const
+    qreal VertexStyle::getRadius() const
     {
         return radius;
     }
@@ -45,11 +45,12 @@ namespace GraphCore
     Vertex::Vertex(int centerX, int centerY, VertexStyle* style, QString name, QObject *parent)
         : QObject(parent), QGraphicsItem()
     {
-        setZValue(10);
+        setZValue(1);
         setPos(centerX, centerY);
         oldPosition = nullptr;
         this->style = style;
         this->name = name;
+        inArrowMode = false;
 
         if (this->style == nullptr)
             this->style = new VertexStyle(20., Qt::white, 10., Qt::blue, Qt::black);  //FIXME
@@ -106,6 +107,13 @@ namespace GraphCore
         return QRectF(0, 0, 0, 0);
     }
 
+    QPainterPath Vertex::shape() const
+    {
+        QPainterPath path;
+        path.addEllipse(boundingRect());
+        return path;
+    }
+
     void Vertex::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
     {
         Q_UNUSED(option);
@@ -138,6 +146,9 @@ namespace GraphCore
         if (oldPosition){
             auto new_pos = mapToScene(event->pos());
             changePositionWithSignal(new_pos.x(), new_pos.y());
+        } else if (inArrowMode){
+            auto realCords = mapToScene(event->pos());
+            lineChanged(this, realCords.x(), realCords.y());
         }
     }
 
@@ -145,16 +156,22 @@ namespace GraphCore
     {
         Q_UNUSED(event);
         if(event->button() == Qt::LeftButton){
+            if(inArrowMode)
+                mouseReleaseEvent(event);
             oldPosition = new QPointF(x(), y());
             startPositionChangedByMouse(this);
             return;
         } if(event->button() == Qt::RightButton){
             if (oldPosition)
                 mouseReleaseEvent(event);
+            inArrowMode = true;
+            startDrawingArrow(this);
             return;
         }
 
+        delete oldPosition;
         oldPosition = nullptr;
+        inArrowMode = false;
     }
 
     void Vertex::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
@@ -164,6 +181,9 @@ namespace GraphCore
             endPositionChangedByMouse(this);
             delete oldPosition;
             oldPosition = nullptr;
+        } else if (inArrowMode){
+            endDrawingArrow(this);
+            inArrowMode = false;
         }
     }
 

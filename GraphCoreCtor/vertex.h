@@ -39,7 +39,7 @@ namespace GraphCore
          * \brief Возвращает радиус.
          * \return Радиус.
          */
-        inline qreal getRadius() const;
+        qreal getRadius() const;
         /*!
          * \brief Возвращает цвет фона.
          * \return Цвет фона.
@@ -145,6 +145,7 @@ namespace GraphCore
          * \param sender Создатель оповещения.
          */
         void startPositionChangedByMouse(Vertex* sender);
+        void startDrawingArrow(Vertex* sender);
         /*!
          * \brief Оповещает подписчиков, что вершина переместилась (под действием мыши).
          * \param sender Создатель оповещения.
@@ -152,11 +153,13 @@ namespace GraphCore
          * \param y Координата y.
          */
         void positionChangedByMouse(Vertex* sender, int x, int y);
+        void lineChanged(Vertex* sender, const int x, const int y);
         /*!
          * \brief Оповещает подписчиков, что вершина закончила процесс перемещения (под действием мыши).
          * \param sender Создатель оповещения.
          */
         void endPositionChangedByMouse(Vertex* sender);
+        void endDrawingArrow(Vertex* sender);
 
     private:
         /*!
@@ -171,12 +174,18 @@ namespace GraphCore
          * \brief Имя вершины.
          */
         QString name;
+        bool inArrowMode;
 
         /*!
          * \brief Возвращает собственную область рисования.
          * \return Область рисования.
          */
         QRectF boundingRect() const;
+        /*!
+         * \brief Возвращает область в которой содержится видимая часть объекта.
+         * \return Контур видимой части.
+         */
+        QPainterPath shape() const;
         /*!
          * \brief Отрисовывает объект.
          * \param painter Рисовальщик.

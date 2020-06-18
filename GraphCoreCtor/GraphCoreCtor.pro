@@ -19,6 +19,7 @@ SOURCES += \
     edge.cpp \
     graph.cpp \
     graphstability.cpp \
+    line.cpp \
     main.cpp \
     mainwindow.cpp \
     vertex.cpp
@@ -27,6 +28,7 @@ HEADERS += \
     edge.h \
     graph.h \
     graphstability.h \
+    line.h \
     mainwindow.h \
     vertex.h
 

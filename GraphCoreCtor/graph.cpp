@@ -7,15 +7,19 @@ namespace GraphCore{
     {
         Q_UNUSED(parent);
         isOriented = true; //FIXME
+        line = new Line;
+        addItem(line);
     }
 
     Graph::~Graph()
     {
+        line->deleteLater();
+
         for(Vertex* vertex : vertexies)
-            delete vertex;
+            vertex->deleteLater();
 
         for(Edge* edge : edges)
-            delete edge;
+            edge->deleteLater();
     }
 
     Vertex& Graph::createVertex(int x, int y, VertexStyle *style)
@@ -40,6 +44,19 @@ namespace GraphCore{
             sender->unsetCursor();
         });
 
+        connect(vertex, &Vertex::startDrawingArrow, this, [&](Vertex* sender){
+            line->setPoint(sender);
+            line->show();
+        });
+
+        connect(vertex, &Vertex::endDrawingArrow, this, [&](Vertex* sender){
+            QLineF temp = line->line();
+            line->setPoint(nullptr);
+            Vertex* vertex = getVertex(temp.x2(), temp.y2());
+            if (vertex && sender != vertex && !edgeExist(*sender, *vertex))
+                createEdge(sender, vertex, line->getDirection(), line->getStyle());
+        });
+
         vertexies.append(vertex);
         return *vertex;
     }
@@ -49,8 +66,15 @@ namespace GraphCore{
         QList<Edge*> ownedEdges = findOwnedEdges(vertex);
         for(Edge* edge : ownedEdges)
             removeEdge(*edge);
+
         vertexies.removeOne(&vertex);
         removeItem(&vertex);
+
+        //vertex.deleteLater(); //Удаление кладет память X(
+
+        line->setPoint(nullptr);
+        line->hide();
+
         updateVertexNames();
     }
 
@@ -77,7 +101,10 @@ namespace GraphCore{
     {
         edge.hide();
         edges.removeOne(&edge);
+
         removeItem(&edge);
+
+        //edge.deleteLater(); //Удаление кладет память X(
     }
 
     void Graph::createAdjacencyMatrix(bool**& matrix, int& length)
@@ -158,5 +185,15 @@ namespace GraphCore{
         for(Vertex* vertex : vertexies){
             vertex->setName(QString::number(++index));
         }
+    }
+
+    bool Graph::edgeExist(Vertex &first, Vertex &second)
+    {
+        for(Edge* edge : edges){
+            if((&first == edge->getFirst() && &second == edge->getSecond())
+                    || (&first == edge->getSecond() && &second == edge->getFirst()))
+                return true;
+        }
+        return false;
     }
 }

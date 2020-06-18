@@ -1,7 +1,7 @@
 #ifndef GRAPHCORE_H
 #define GRAPHCORE_H
 
-#include "edge.h"
+#include "line.h"
 
 namespace GraphCore
 {
@@ -76,6 +76,8 @@ namespace GraphCore
        */
       QList<Edge*> edges;
 
+      Line* line;
+
       /*!
        * \brief Возвращает указатель на первую рядом лежащую веришну, если vertex находится в ее радиусе. Либо NULL, если в радиусе нет ни одной такой вершины.
        * \param vertex Вершина.
@@ -97,6 +99,12 @@ namespace GraphCore
        * \brief Переименовывает все вершины графа.
        */
       void updateVertexNames();
+      /*!
+       * \brief Возвращает true, если существует ребро соединяющее 2 вершины (не учитывает направление).
+       * \param first Первая вершина.
+       * \param second Вторая вершина.
+       */
+      bool edgeExist(Vertex& first, Vertex& second);
     };
 
 }

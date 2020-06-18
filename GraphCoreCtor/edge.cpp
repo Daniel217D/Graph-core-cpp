@@ -40,6 +40,7 @@ namespace GraphCore
     Edge::Edge(Vertex *first, Vertex *second, EdgeDirection direction, EdgeStyle* style, QObject *parent)
         : QObject(parent), QGraphicsItem()
     {
+        setZValue(0);
         this->first = first;
         this->second = second;
         this->direction = direction;
@@ -99,14 +100,14 @@ namespace GraphCore
     int Edge::getQuarter() const
     {
         if (first == nullptr || second == nullptr)
-            return 0;
+            return -1;
         if (first->x() <= second->x() && first->y() <= second->y())
-            return 4;
+            return 3;
         else if (first->x() > second->x() && first->y() > second->y())
-            return 2;
-        else if(first->x() <= second->x() && first->y() >= second->y())
             return 1;
-        else return 3;
+        else if(first->x() <= second->x() && first->y() >= second->y())
+            return 0;
+        else return 2;
     }
 
     QRectF Edge::boundingRect() const
@@ -135,7 +136,7 @@ namespace GraphCore
             painter->setRenderHint(QPainter::Antialiasing, true);
             painter->setPen(QPen(style.getColor(), style.getDiameter()));
 
-            int quarter = getQuarter() - 1; //TODO: Проверка на 0 (не хватает какой-то вершины)
+            int quarter = getQuarter(); //TODO: Проверка на -1 (не хватает какой-то вершины)
             bool firstBit = quarter & 1;
             bool secondBit = quarter >> 1;
 
