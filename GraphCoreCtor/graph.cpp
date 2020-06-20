@@ -3,11 +3,14 @@
 
 namespace GraphCore{
 
-    Graph::Graph(QWidget *parent)
+    Graph::Graph(Theme& theme, bool isOriented, QWidget *parent)
     {
         Q_UNUSED(parent);
-        isOriented = true; //FIXME
-        line = new Line;
+
+        this->theme = &theme;
+        this->isOriented = isOriented;
+        line = new Line(this->theme->getDefaultEdgeStyle());
+
         addItem(line);
     }
 
@@ -22,9 +25,9 @@ namespace GraphCore{
             edge->deleteLater();
     }
 
-    Vertex& Graph::createVertex(int x, int y, VertexStyle *style)
+    Vertex& Graph::createVertex(int x, int y)
     {
-        Vertex* vertex = new Vertex(x, y, style, QString::number(vertexies.size() + 1));
+        Vertex* vertex = new Vertex(x, y, getTheme()->getDefaultVertexStyle(), QString::number(vertexies.size() + 1));
         addItem(vertex);
 
         connect(vertex, &Vertex::startPositionChangedByMouse, this, [&](Vertex* sender){
@@ -54,7 +57,7 @@ namespace GraphCore{
             line->setPoint(nullptr);
             Vertex* vertex = getVertex(temp.x2(), temp.y2());
             if (vertex && sender != vertex && !edgeExist(*sender, *vertex))
-                createEdge(sender, vertex, line->getDirection(), line->getStyle());
+                createEdge(sender, vertex, line->getDirection());
         });
 
         vertexies.append(vertex);
@@ -78,9 +81,9 @@ namespace GraphCore{
         updateVertexNames();
     }
 
-    Edge& Graph::createEdge(Vertex *first, Vertex *second, EdgeDirection direction, EdgeStyle* style)
+    Edge& Graph::createEdge(Vertex *first, Vertex *second, EdgeDirection direction)
     {
-        Edge* edge = new Edge(first, second, direction, style);
+        Edge* edge = new Edge(first, second, direction, getTheme()->getDefaultEdgeStyle());
         addItem(edge);
 
         connect(edge, &Edge::needDirectionChanged, this, [&](Edge* sender){
@@ -131,14 +134,32 @@ namespace GraphCore{
                 }
     }
 
+    Theme *Graph::getTheme() const
+    {
+        return theme;
+    }
+
+    void Graph::setTheme(Theme *value)
+    {
+        theme = value;
+
+        for(Vertex* vertex : vertexies){
+            vertex->setStyle(theme->getDefaultVertexStyle());
+        }
+
+        for(Edge* edge : edges){
+            edge->setStyle(theme->getDefaultEdgeStyle());
+        }
+    }
+
     void Graph::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
     {
         QGraphicsScene::mouseDoubleClickEvent(event);
         QPointF mouse_pos = event->scenePos();
         Vertex* vertex = getVertex(mouse_pos.x(), mouse_pos.y());
-        if(!vertex){ //TODO: Добавить изменение стиля вершины на выделенный
+        if(!vertex){
             if(event->button() == Qt::LeftButton)
-                createVertex(mouse_pos.x(), mouse_pos.y(), nullptr);
+                createVertex(mouse_pos.x(), mouse_pos.y());
         } else {
             if(event->button() == Qt::RightButton)
                 removeVertex(*vertex);

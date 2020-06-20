@@ -19,5 +19,6 @@ public:
 private:
     Ui::MainWindow *ui;
     GraphCore::Graph* graph;
+    GraphCore::WhiteTheme* whiteTheme;
 };
 #endif // MAINWINDOW_H

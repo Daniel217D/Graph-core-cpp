@@ -1,7 +1,7 @@
 #ifndef GRAPHCORE_H
 #define GRAPHCORE_H
 
-#include "line.h"
+#include "theme.h"
 
 namespace GraphCore
 {
@@ -16,15 +16,14 @@ namespace GraphCore
          * \brief Инициализирует граф.
          * \param parent Объект родителя.
          */
-        explicit Graph(QWidget *parent = nullptr);
+        explicit Graph(Theme& theme, bool isOriented = true, QWidget *parent = nullptr);
         /*!
          * \brief Создает вершину и добавляет ее на граф.
          * \param x Координата x.
          * \param y Координата y.
-         * \param style Стиль вершины.
          * \return Ссылку на созданную вершину.
          */
-        Vertex& createVertex(int x, int y, VertexStyle* style);
+        Vertex& createVertex(int x, int y);
         /*!
          * \brief Удаляет вершину и все зависящие от нее ребра на графа.
          * \param vertex Вершина.
@@ -35,10 +34,9 @@ namespace GraphCore
          * \param first Вершина 1.
          * \param second Вершина 2.
          * \param direction Направление стрелок ребра.
-         * \param style Стиль ребра.
          * \return Ссылку на созданное ребро.
          */
-        Edge& createEdge(Vertex* first, Vertex* second, EdgeDirection direction, EdgeStyle* style);
+        Edge& createEdge(Vertex* first, Vertex* second, EdgeDirection direction);
         /*!
          * \brief Удаляет ребро на граф.
          * \param edge Ребро.
@@ -50,6 +48,10 @@ namespace GraphCore
          * \param length Длина квадратной матрицы.
          */
         void createAdjacencyMatrix(bool**& matrix, int& length);
+
+        Theme* getTheme() const;
+        void setTheme(Theme* value);
+
         /*!
          * \brief Уничтожает граф.
          */
@@ -77,6 +79,8 @@ namespace GraphCore
       QList<Edge*> edges;
 
       Line* line;
+
+      Theme* theme;
 
       /*!
        * \brief Возвращает указатель на первую рядом лежащую веришну, если vertex находится в ее радиусе. Либо NULL, если в радиусе нет ни одной такой вершины.

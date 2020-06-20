@@ -6,14 +6,13 @@ namespace GraphCore
         : QObject(parent), QGraphicsLineItem()
     {
         setZValue(2);
-        point = nullptr;
+
+        this->point = nullptr;
         this->setLine(0, 0, 0, 0);
-        hide();
         this->direction = direction;
         this->style = style;
 
-        if(this->style == nullptr)
-            this->style = new EdgeStyle(3, Qt::black, 10, 0.45); //FIXME
+        hide();
     }
 
     EdgeStyle *Line::getStyle() const

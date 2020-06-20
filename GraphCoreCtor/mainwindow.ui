@@ -25,7 +25,7 @@
      <layout class="QGridLayout" name="graphView"/>
     </item>
     <item>
-     <layout class="QVBoxLayout" name="verticalLayout_3">
+     <layout class="QVBoxLayout" name="propertyView">
       <property name="leftMargin">
        <number>5</number>
       </property>
@@ -33,7 +33,7 @@
        <number>5</number>
       </property>
       <item>
-       <widget class="QLabel" name="label">
+       <widget class="QLabel" name="lexsButton">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
           <horstretch>0</horstretch>
@@ -46,10 +46,10 @@
        </widget>
       </item>
       <item>
-       <widget class="QListView" name="listView"/>
+       <widget class="QListView" name="lexList"/>
       </item>
       <item>
-       <widget class="QLabel" name="label_2">
+       <widget class="QLabel" name="linsButton">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
           <horstretch>0</horstretch>
@@ -62,10 +62,10 @@
        </widget>
       </item>
       <item>
-       <widget class="QListView" name="listView_2"/>
+       <widget class="QListView" name="linsList"/>
       </item>
       <item>
-       <widget class="QLabel" name="label_3">
+       <widget class="QLabel" name="lcsButton">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
           <horstretch>0</horstretch>
@@ -78,22 +78,22 @@
        </widget>
       </item>
       <item>
-       <widget class="QListView" name="listView_3"/>
+       <widget class="QListView" name="lcsList"/>
       </item>
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_4">
+       <layout class="QHBoxLayout" name="buttonsView">
         <property name="leftMargin">
          <number>0</number>
         </property>
         <item>
-         <widget class="QPushButton" name="pushButton_3">
+         <widget class="QPushButton" name="removeSelectButton">
           <property name="text">
            <string>Убрать выделение</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="pushButton">
+         <widget class="QPushButton" name="findCoresButton">
           <property name="text">
            <string>Выполнить поиск ядра</string>
           </property>
@@ -114,27 +114,27 @@
      <height>21</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menu">
+   <widget class="QMenu" name="fileMenu">
     <property name="title">
      <string>Файл</string>
     </property>
-    <addaction name="action"/>
-    <addaction name="action_2"/>
-    <addaction name="action_3"/>
+    <addaction name="openFile"/>
+    <addaction name="saveFile"/>
+    <addaction name="saveAsFile"/>
    </widget>
-   <widget class="QMenu" name="menu_2">
+   <widget class="QMenu" name="propertyMenu">
     <property name="title">
      <string>Свойства</string>
     </property>
-    <addaction name="action_4"/>
-    <addaction name="action_5"/>
-    <addaction name="action_6"/>
+    <addaction name="orientation"/>
+    <addaction name="blackTheme"/>
+    <addaction name="about"/>
    </widget>
-   <addaction name="menu"/>
-   <addaction name="menu_2"/>
+   <addaction name="fileMenu"/>
+   <addaction name="propertyMenu"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
-  <action name="action">
+  <action name="openFile">
    <property name="text">
     <string>Открыть</string>
    </property>
@@ -142,7 +142,7 @@
     <string>Ctrl+N</string>
    </property>
   </action>
-  <action name="action_2">
+  <action name="saveFile">
    <property name="text">
     <string>Сохранить</string>
    </property>
@@ -150,7 +150,7 @@
     <string>Ctrl+S</string>
    </property>
   </action>
-  <action name="action_3">
+  <action name="saveAsFile">
    <property name="text">
     <string>Сохранить как</string>
    </property>
@@ -158,7 +158,7 @@
     <string>Ctrl+Shift+S</string>
    </property>
   </action>
-  <action name="action_4">
+  <action name="orientation">
    <property name="checkable">
     <bool>true</bool>
    </property>
@@ -169,7 +169,7 @@
     <string>Ориентация</string>
    </property>
   </action>
-  <action name="action_5">
+  <action name="blackTheme">
    <property name="checkable">
     <bool>true</bool>
    </property>
@@ -177,7 +177,7 @@
     <string>Черная тема</string>
    </property>
   </action>
-  <action name="action_6">
+  <action name="about">
    <property name="text">
     <string>О программе</string>
    </property>

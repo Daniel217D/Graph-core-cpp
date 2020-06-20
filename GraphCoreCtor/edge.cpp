@@ -46,8 +46,11 @@ namespace GraphCore
         this->direction = direction;
         this->style = style;
 
+        //this->setPos(first->x(), first->y());
+
         if (first != nullptr)
             connect(first, &Vertex::positionChangedByMouse, this, [&](){
+                //this->setPos(sender->x(), sender->y());
                 update();
             });
 
@@ -55,9 +58,6 @@ namespace GraphCore
             connect(second, &Vertex::positionChangedByMouse, this, [&](){
                 update();
             });
-
-        if(this->style == nullptr)
-           this->style = new EdgeStyle(3, Qt::black, 10, 0.45); //FIXME
     }
 
     Edge::~Edge()
@@ -118,6 +118,14 @@ namespace GraphCore
         return QRectF(0, 0, width, height);
     }
 
+    bool Edge::contains(const QPointF &point) const
+    {
+        auto realCoords = mapToScene(QPointF(point.x(), point.y()));
+        qreal k = getTiltAngle();
+        qreal b = first->y() - k * first->x();
+        return abs((k * realCoords.x() + b)  - realCoords.y()) <= style->getDiameter();
+    }
+
     qreal Edge::getTiltAngle() const
     {
         return (second->y() - first->y()) / (second->x() - first->x());
@@ -136,7 +144,7 @@ namespace GraphCore
             painter->setRenderHint(QPainter::Antialiasing, true);
             painter->setPen(QPen(style.getColor(), style.getDiameter()));
 
-            int quarter = getQuarter(); //TODO: Проверка на -1 (не хватает какой-то вершины)
+            int quarter = getQuarter();
             bool firstBit = quarter & 1;
             bool secondBit = quarter >> 1;
 
@@ -181,7 +189,7 @@ namespace GraphCore
 
     void Edge::mousePressEvent(QGraphicsSceneMouseEvent *event)
     {
-        if (isLine(event->pos().x(), event->pos().y())){
+        if (contains(event->pos())){
             if(event->button() == Qt::LeftButton)
                 needDirectionChanged(this);
             else if (event->button() == Qt::RightButton)
@@ -189,15 +197,34 @@ namespace GraphCore
         }
     }
 
-    bool Edge::isLine(const int x, const int y)
+    QLineF Edge::line() const
     {
-        auto realCoords = mapToScene(QPointF(x, y));
-        qreal k = getTiltAngle();
-        qreal b = first->y() - k * first->x();
-        return abs((k * realCoords.x() + b)  - realCoords.y()) <= style->getDiameter();
+        QRectF sizes = boundingRect();
+        int quarter = getQuarter();
+
+        if (quarter > -1){
+            QPointF touchPointStart = getTouchPoint(first->getStyle()->getRadius());
+            QPointF touchPointEnd = getTouchPoint(second->getStyle()->getRadius());
+            switch(quarter){
+            case 0:
+                return QLineF(0 - touchPointStart.x(), 0 + touchPointEnd.y(),
+                              sizes.width() + touchPointStart.x(), -sizes.height() - touchPointEnd.y());
+            case 1:
+                return QLineF(0 + touchPointStart.x(), 0 - touchPointEnd.y(),
+                              -sizes.width() - touchPointStart.x(), -sizes.height() + touchPointEnd.y());
+            case 2:
+                return QLineF(0 + touchPointStart.x(), 0 - touchPointEnd.y(),
+                              -sizes.width() - touchPointStart.x(), sizes.height() + touchPointEnd.y());
+            case 3:
+                return QLineF(0 - touchPointStart.x(), 0 + touchPointEnd.y(),
+                              sizes.width() + touchPointStart.x(), sizes.height() - + touchPointEnd.y());
+            }
+
+        }
+        return QLineF(0, 0, 0, 0);
     }
 
-    QPointF Edge::getTouchPoint(qreal radix){
+    QPointF Edge::getTouchPoint(qreal radix) const{
          //Прямая проходящая через вершины (в общем виде)
          qreal a = getTiltAngle();
          const qreal b = -1;

@@ -22,6 +22,7 @@ SOURCES += \
     line.cpp \
     main.cpp \
     mainwindow.cpp \
+    theme.cpp \
     vertex.cpp
 
 HEADERS += \
@@ -30,6 +31,7 @@ HEADERS += \
     graphstability.h \
     line.h \
     mainwindow.h \
+    theme.h \
     vertex.h
 
 FORMS += \

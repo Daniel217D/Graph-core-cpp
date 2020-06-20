@@ -29,28 +29,28 @@ QT_BEGIN_NAMESPACE
 class Ui_MainWindow
 {
 public:
-    QAction *action;
-    QAction *action_2;
-    QAction *action_3;
-    QAction *action_4;
-    QAction *action_5;
-    QAction *action_6;
+    QAction *openFile;
+    QAction *saveFile;
+    QAction *saveAsFile;
+    QAction *orientation;
+    QAction *blackTheme;
+    QAction *about;
     QWidget *centralwidget;
     QHBoxLayout *horizontalLayout;
     QGridLayout *graphView;
-    QVBoxLayout *verticalLayout_3;
-    QLabel *label;
-    QListView *listView;
-    QLabel *label_2;
-    QListView *listView_2;
-    QLabel *label_3;
-    QListView *listView_3;
-    QHBoxLayout *horizontalLayout_4;
-    QPushButton *pushButton_3;
-    QPushButton *pushButton;
+    QVBoxLayout *propertyView;
+    QLabel *lexsButton;
+    QListView *lexList;
+    QLabel *linsButton;
+    QListView *linsList;
+    QLabel *lcsButton;
+    QListView *lcsList;
+    QHBoxLayout *buttonsView;
+    QPushButton *removeSelectButton;
+    QPushButton *findCoresButton;
     QMenuBar *menubar;
-    QMenu *menu;
-    QMenu *menu_2;
+    QMenu *fileMenu;
+    QMenu *propertyMenu;
     QStatusBar *statusbar;
 
     void setupUi(QMainWindow *MainWindow)
@@ -59,21 +59,21 @@ public:
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
         MainWindow->resize(552, 312);
         MainWindow->setMinimumSize(QSize(552, 312));
-        action = new QAction(MainWindow);
-        action->setObjectName(QString::fromUtf8("action"));
-        action_2 = new QAction(MainWindow);
-        action_2->setObjectName(QString::fromUtf8("action_2"));
-        action_3 = new QAction(MainWindow);
-        action_3->setObjectName(QString::fromUtf8("action_3"));
-        action_4 = new QAction(MainWindow);
-        action_4->setObjectName(QString::fromUtf8("action_4"));
-        action_4->setCheckable(true);
-        action_4->setChecked(true);
-        action_5 = new QAction(MainWindow);
-        action_5->setObjectName(QString::fromUtf8("action_5"));
-        action_5->setCheckable(true);
-        action_6 = new QAction(MainWindow);
-        action_6->setObjectName(QString::fromUtf8("action_6"));
+        openFile = new QAction(MainWindow);
+        openFile->setObjectName(QString::fromUtf8("openFile"));
+        saveFile = new QAction(MainWindow);
+        saveFile->setObjectName(QString::fromUtf8("saveFile"));
+        saveAsFile = new QAction(MainWindow);
+        saveAsFile->setObjectName(QString::fromUtf8("saveAsFile"));
+        orientation = new QAction(MainWindow);
+        orientation->setObjectName(QString::fromUtf8("orientation"));
+        orientation->setCheckable(true);
+        orientation->setChecked(true);
+        blackTheme = new QAction(MainWindow);
+        blackTheme->setObjectName(QString::fromUtf8("blackTheme"));
+        blackTheme->setCheckable(true);
+        about = new QAction(MainWindow);
+        about->setObjectName(QString::fromUtf8("about"));
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         horizontalLayout = new QHBoxLayout(centralwidget);
@@ -83,88 +83,88 @@ public:
 
         horizontalLayout->addLayout(graphView);
 
-        verticalLayout_3 = new QVBoxLayout();
-        verticalLayout_3->setObjectName(QString::fromUtf8("verticalLayout_3"));
-        verticalLayout_3->setContentsMargins(5, -1, 5, -1);
-        label = new QLabel(centralwidget);
-        label->setObjectName(QString::fromUtf8("label"));
+        propertyView = new QVBoxLayout();
+        propertyView->setObjectName(QString::fromUtf8("propertyView"));
+        propertyView->setContentsMargins(5, -1, 5, -1);
+        lexsButton = new QLabel(centralwidget);
+        lexsButton->setObjectName(QString::fromUtf8("lexsButton"));
         QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
-        sizePolicy.setHeightForWidth(label->sizePolicy().hasHeightForWidth());
-        label->setSizePolicy(sizePolicy);
+        sizePolicy.setHeightForWidth(lexsButton->sizePolicy().hasHeightForWidth());
+        lexsButton->setSizePolicy(sizePolicy);
 
-        verticalLayout_3->addWidget(label);
+        propertyView->addWidget(lexsButton);
 
-        listView = new QListView(centralwidget);
-        listView->setObjectName(QString::fromUtf8("listView"));
+        lexList = new QListView(centralwidget);
+        lexList->setObjectName(QString::fromUtf8("lexList"));
 
-        verticalLayout_3->addWidget(listView);
+        propertyView->addWidget(lexList);
 
-        label_2 = new QLabel(centralwidget);
-        label_2->setObjectName(QString::fromUtf8("label_2"));
-        sizePolicy.setHeightForWidth(label_2->sizePolicy().hasHeightForWidth());
-        label_2->setSizePolicy(sizePolicy);
+        linsButton = new QLabel(centralwidget);
+        linsButton->setObjectName(QString::fromUtf8("linsButton"));
+        sizePolicy.setHeightForWidth(linsButton->sizePolicy().hasHeightForWidth());
+        linsButton->setSizePolicy(sizePolicy);
 
-        verticalLayout_3->addWidget(label_2);
+        propertyView->addWidget(linsButton);
 
-        listView_2 = new QListView(centralwidget);
-        listView_2->setObjectName(QString::fromUtf8("listView_2"));
+        linsList = new QListView(centralwidget);
+        linsList->setObjectName(QString::fromUtf8("linsList"));
 
-        verticalLayout_3->addWidget(listView_2);
+        propertyView->addWidget(linsList);
 
-        label_3 = new QLabel(centralwidget);
-        label_3->setObjectName(QString::fromUtf8("label_3"));
-        sizePolicy.setHeightForWidth(label_3->sizePolicy().hasHeightForWidth());
-        label_3->setSizePolicy(sizePolicy);
+        lcsButton = new QLabel(centralwidget);
+        lcsButton->setObjectName(QString::fromUtf8("lcsButton"));
+        sizePolicy.setHeightForWidth(lcsButton->sizePolicy().hasHeightForWidth());
+        lcsButton->setSizePolicy(sizePolicy);
 
-        verticalLayout_3->addWidget(label_3);
+        propertyView->addWidget(lcsButton);
 
-        listView_3 = new QListView(centralwidget);
-        listView_3->setObjectName(QString::fromUtf8("listView_3"));
+        lcsList = new QListView(centralwidget);
+        lcsList->setObjectName(QString::fromUtf8("lcsList"));
 
-        verticalLayout_3->addWidget(listView_3);
+        propertyView->addWidget(lcsList);
 
-        horizontalLayout_4 = new QHBoxLayout();
-        horizontalLayout_4->setObjectName(QString::fromUtf8("horizontalLayout_4"));
-        horizontalLayout_4->setContentsMargins(0, -1, -1, -1);
-        pushButton_3 = new QPushButton(centralwidget);
-        pushButton_3->setObjectName(QString::fromUtf8("pushButton_3"));
+        buttonsView = new QHBoxLayout();
+        buttonsView->setObjectName(QString::fromUtf8("buttonsView"));
+        buttonsView->setContentsMargins(0, -1, -1, -1);
+        removeSelectButton = new QPushButton(centralwidget);
+        removeSelectButton->setObjectName(QString::fromUtf8("removeSelectButton"));
 
-        horizontalLayout_4->addWidget(pushButton_3);
+        buttonsView->addWidget(removeSelectButton);
 
-        pushButton = new QPushButton(centralwidget);
-        pushButton->setObjectName(QString::fromUtf8("pushButton"));
+        findCoresButton = new QPushButton(centralwidget);
+        findCoresButton->setObjectName(QString::fromUtf8("findCoresButton"));
 
-        horizontalLayout_4->addWidget(pushButton);
-
-
-        verticalLayout_3->addLayout(horizontalLayout_4);
+        buttonsView->addWidget(findCoresButton);
 
 
-        horizontalLayout->addLayout(verticalLayout_3);
+        propertyView->addLayout(buttonsView);
+
+
+        horizontalLayout->addLayout(propertyView);
 
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QString::fromUtf8("menubar"));
         menubar->setGeometry(QRect(0, 0, 552, 21));
-        menu = new QMenu(menubar);
-        menu->setObjectName(QString::fromUtf8("menu"));
-        menu_2 = new QMenu(menubar);
-        menu_2->setObjectName(QString::fromUtf8("menu_2"));
+        fileMenu = new QMenu(menubar);
+        fileMenu->setObjectName(QString::fromUtf8("fileMenu"));
+        propertyMenu = new QMenu(menubar);
+        propertyMenu->setObjectName(QString::fromUtf8("propertyMenu"));
         MainWindow->setMenuBar(menubar);
         statusbar = new QStatusBar(MainWindow);
         statusbar->setObjectName(QString::fromUtf8("statusbar"));
         MainWindow->setStatusBar(statusbar);
 
-        menubar->addAction(menu->menuAction());
-        menubar->addAction(menu_2->menuAction());
-        menu->addAction(action);
-        menu->addAction(action_2);
-        menu->addAction(action_3);
-        menu_2->addAction(action_4);
-        menu_2->addAction(action_5);
-        menu_2->addAction(action_6);
+        menubar->addAction(fileMenu->menuAction());
+        menubar->addAction(propertyMenu->menuAction());
+        fileMenu->addAction(openFile);
+        fileMenu->addAction(saveFile);
+        fileMenu->addAction(saveAsFile);
+        propertyMenu->addAction(orientation);
+        propertyMenu->addAction(blackTheme);
+        propertyMenu->addAction(about);
 
         retranslateUi(MainWindow);
 
@@ -174,28 +174,28 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
-        action->setText(QCoreApplication::translate("MainWindow", "\320\236\321\202\320\272\321\200\321\213\321\202\321\214", nullptr));
+        openFile->setText(QCoreApplication::translate("MainWindow", "\320\236\321\202\320\272\321\200\321\213\321\202\321\214", nullptr));
 #if QT_CONFIG(shortcut)
-        action->setShortcut(QCoreApplication::translate("MainWindow", "Ctrl+N", nullptr));
+        openFile->setShortcut(QCoreApplication::translate("MainWindow", "Ctrl+N", nullptr));
 #endif // QT_CONFIG(shortcut)
-        action_2->setText(QCoreApplication::translate("MainWindow", "\320\241\320\276\321\205\321\200\320\260\320\275\320\270\321\202\321\214", nullptr));
+        saveFile->setText(QCoreApplication::translate("MainWindow", "\320\241\320\276\321\205\321\200\320\260\320\275\320\270\321\202\321\214", nullptr));
 #if QT_CONFIG(shortcut)
-        action_2->setShortcut(QCoreApplication::translate("MainWindow", "Ctrl+S", nullptr));
+        saveFile->setShortcut(QCoreApplication::translate("MainWindow", "Ctrl+S", nullptr));
 #endif // QT_CONFIG(shortcut)
-        action_3->setText(QCoreApplication::translate("MainWindow", "\320\241\320\276\321\205\321\200\320\260\320\275\320\270\321\202\321\214 \320\272\320\260\320\272", nullptr));
+        saveAsFile->setText(QCoreApplication::translate("MainWindow", "\320\241\320\276\321\205\321\200\320\260\320\275\320\270\321\202\321\214 \320\272\320\260\320\272", nullptr));
 #if QT_CONFIG(shortcut)
-        action_3->setShortcut(QCoreApplication::translate("MainWindow", "Ctrl+Shift+S", nullptr));
+        saveAsFile->setShortcut(QCoreApplication::translate("MainWindow", "Ctrl+Shift+S", nullptr));
 #endif // QT_CONFIG(shortcut)
-        action_4->setText(QCoreApplication::translate("MainWindow", "\320\236\321\200\320\270\320\265\320\275\321\202\320\260\321\206\320\270\321\217", nullptr));
-        action_5->setText(QCoreApplication::translate("MainWindow", "\320\247\320\265\321\200\320\275\320\260\321\217 \321\202\320\265\320\274\320\260", nullptr));
-        action_6->setText(QCoreApplication::translate("MainWindow", "\320\236 \320\277\321\200\320\276\320\263\321\200\320\260\320\274\320\274\320\265", nullptr));
-        label->setText(QCoreApplication::translate("MainWindow", "\320\234\320\275\320\276\320\266\320\265\321\201\321\202\320\262\320\260 \320\262\320\275\320\265\321\210\320\275\320\265\320\271 \321\203\321\201\321\202\320\276\320\271\321\207\320\270\320\262\320\276\321\201\321\202\320\270", nullptr));
-        label_2->setText(QCoreApplication::translate("MainWindow", "\320\234\320\275\320\276\320\266\320\265\321\201\321\202\320\262\320\260 \320\262\320\275\321\203\321\202\321\200\320\265\320\275\320\275\320\265\320\271 \321\203\321\201\321\202\320\276\320\271\321\207\320\270\320\262\320\276\321\201\321\202\320\270", nullptr));
-        label_3->setText(QCoreApplication::translate("MainWindow", "\320\257\320\264\321\200\320\260", nullptr));
-        pushButton_3->setText(QCoreApplication::translate("MainWindow", "\320\243\320\261\321\200\320\260\321\202\321\214 \320\262\321\213\320\264\320\265\320\273\320\265\320\275\320\270\320\265", nullptr));
-        pushButton->setText(QCoreApplication::translate("MainWindow", "\320\222\321\213\320\277\320\276\320\273\320\275\320\270\321\202\321\214 \320\277\320\276\320\270\321\201\320\272 \321\217\320\264\321\200\320\260", nullptr));
-        menu->setTitle(QCoreApplication::translate("MainWindow", "\320\244\320\260\320\271\320\273", nullptr));
-        menu_2->setTitle(QCoreApplication::translate("MainWindow", "\320\241\320\262\320\276\320\271\321\201\321\202\320\262\320\260", nullptr));
+        orientation->setText(QCoreApplication::translate("MainWindow", "\320\236\321\200\320\270\320\265\320\275\321\202\320\260\321\206\320\270\321\217", nullptr));
+        blackTheme->setText(QCoreApplication::translate("MainWindow", "\320\247\320\265\321\200\320\275\320\260\321\217 \321\202\320\265\320\274\320\260", nullptr));
+        about->setText(QCoreApplication::translate("MainWindow", "\320\236 \320\277\321\200\320\276\320\263\321\200\320\260\320\274\320\274\320\265", nullptr));
+        lexsButton->setText(QCoreApplication::translate("MainWindow", "\320\234\320\275\320\276\320\266\320\265\321\201\321\202\320\262\320\260 \320\262\320\275\320\265\321\210\320\275\320\265\320\271 \321\203\321\201\321\202\320\276\320\271\321\207\320\270\320\262\320\276\321\201\321\202\320\270", nullptr));
+        linsButton->setText(QCoreApplication::translate("MainWindow", "\320\234\320\275\320\276\320\266\320\265\321\201\321\202\320\262\320\260 \320\262\320\275\321\203\321\202\321\200\320\265\320\275\320\275\320\265\320\271 \321\203\321\201\321\202\320\276\320\271\321\207\320\270\320\262\320\276\321\201\321\202\320\270", nullptr));
+        lcsButton->setText(QCoreApplication::translate("MainWindow", "\320\257\320\264\321\200\320\260", nullptr));
+        removeSelectButton->setText(QCoreApplication::translate("MainWindow", "\320\243\320\261\321\200\320\260\321\202\321\214 \320\262\321\213\320\264\320\265\320\273\320\265\320\275\320\270\320\265", nullptr));
+        findCoresButton->setText(QCoreApplication::translate("MainWindow", "\320\222\321\213\320\277\320\276\320\273\320\275\320\270\321\202\321\214 \320\277\320\276\320\270\321\201\320\272 \321\217\320\264\321\200\320\260", nullptr));
+        fileMenu->setTitle(QCoreApplication::translate("MainWindow", "\320\244\320\260\320\271\320\273", nullptr));
+        propertyMenu->setTitle(QCoreApplication::translate("MainWindow", "\320\241\320\262\320\276\320\271\321\201\321\202\320\262\320\260", nullptr));
     } // retranslateUi
 
 };

@@ -2,6 +2,7 @@
 #define EDGE_H
 
 #include "vertex.h"
+#include <QLineF>
 
 namespace GraphCore
 {
@@ -162,6 +163,7 @@ namespace GraphCore
          * \return Область рисования.
          */
         QRectF boundingRect() const;
+        bool contains(const QPointF &point) const;
         /*!
          * \brief Отрисовывает объект.
          * \param painter Рисовальщик.
@@ -174,12 +176,7 @@ namespace GraphCore
          * \param event Информация о событии.
          */
         void mousePressEvent(QGraphicsSceneMouseEvent *event);
-        /*!
-         * \brief Возвращает true, если координаты x, y попадают на линию.
-         * \param x Координата x.
-         * \param y Координата y.
-         */
-        bool isLine(const int x, const int y);
+        QLineF line() const;
         /*!
          * \brief Возвращает коеффициент угла наклона.
          * \return Коеффициент угла наклона
@@ -190,7 +187,7 @@ namespace GraphCore
          * \param radix Радиус круга.
          * \return Точка касания
          */
-        QPointF getTouchPoint(qreal radix);
+        QPointF getTouchPoint(qreal radix) const;
     };
 
 }

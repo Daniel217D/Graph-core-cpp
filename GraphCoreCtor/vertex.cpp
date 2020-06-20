@@ -51,9 +51,6 @@ namespace GraphCore
         this->style = style;
         this->name = name;
         inArrowMode = false;
-
-        if (this->style == nullptr)
-            this->style = new VertexStyle(20., Qt::white, 10., Qt::blue, Qt::black);  //FIXME
     }
 
     Vertex::~Vertex()

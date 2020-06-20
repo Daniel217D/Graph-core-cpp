@@ -4,8 +4,8 @@ debug/graphstability.o
 debug/line.o
 debug/main.o
 debug/mainwindow.o
+debug/theme.o
 debug/vertex.o
 debug/moc_edge.o
-debug/moc_line.o
 debug/moc_mainwindow.o
 debug/moc_vertex.o
