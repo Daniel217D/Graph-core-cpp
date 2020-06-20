@@ -18,6 +18,6 @@ public:
 
 private:
     Ui::MainWindow *ui;
-    //GraphCore::Graph* graph;
+    GraphCore::Graph* graph;
 };
 #endif // MAINWINDOW_H

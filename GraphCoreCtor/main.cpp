@@ -1,14 +1,12 @@
 #include "mainwindow.h"
 
 #include <QApplication>
-#include <QGraphicsView>
-#include "graph.h"
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    using namespace GraphCore;
+    /*using namespace GraphCore;
 
     Graph graph;
     QGraphicsView view(&graph);
@@ -58,7 +56,7 @@ int main(int argc, char *argv[])
     graph.createEdge(v9, v5, EdgeDirection::ToSecond, nullptr);
 
     //10
-    graph.createEdge(v10, v4, EdgeDirection::ToSecond, nullptr);
+    graph.createEdge(v10, v4, EdgeDirection::ToSecond, nullptr);*/
 
     /*auto center = &graph.createVertex(100, 100, new VertexStyle(30., Qt::white, 10., Qt::red, Qt::black));
     auto v1 = &graph.createVertex(200, 0, nullptr);
@@ -70,10 +68,11 @@ int main(int argc, char *argv[])
     graph.createEdge(center, v3, EdgeDirection::All, nullptr);
     graph.createEdge(center, v4, EdgeDirection::All, nullptr);*/
 
-    view.show();
-    graph.update();
+    //view.show();
+    //graph.update();
 
-    //MainWindow w;
-    //w.show();
+    MainWindow w;
+    w.show();
+
     return a.exec();
 }

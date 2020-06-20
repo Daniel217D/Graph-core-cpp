@@ -1,0 +1,11 @@
+release/edge.o
+release/graph.o
+release/graphstability.o
+release/line.o
+release/main.o
+release/mainwindow.o
+release/vertex.o
+release/moc_edge.o
+release/moc_line.o
+release/moc_mainwindow.o
+release/moc_vertex.o
