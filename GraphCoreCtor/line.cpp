@@ -20,6 +20,12 @@ namespace GraphCore
         return style;
     }
 
+    void Line::setStyle(EdgeStyle *value)
+    {
+        style = value;
+        update();
+    }
+
     void Line::setPoint(Vertex *value)
     {
         if (value != nullptr){

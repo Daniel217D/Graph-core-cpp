@@ -3,7 +3,7 @@
 namespace GraphCore
 {
 
-    VertexStyle::VertexStyle(qreal radius, Qt::GlobalColor backgroundColor, double circuitPercent, Qt::GlobalColor circuitColor, Qt::GlobalColor textColor)
+    VertexStyle::VertexStyle(qreal radius, QColor backgroundColor, double circuitPercent, QColor circuitColor, QColor textColor)
     {
         this->radius = radius;
         this->backgroundColor = backgroundColor;
@@ -22,17 +22,17 @@ namespace GraphCore
         return circuitPercent;
     }
 
-    inline Qt::GlobalColor VertexStyle::getCircuitColor() const
+    inline QColor VertexStyle::getCircuitColor() const
     {
         return circuitColor;
     }
 
-    inline Qt::GlobalColor VertexStyle::getTextColor() const
+    inline QColor VertexStyle::getTextColor() const
     {
         return textColor;
     }
 
-    inline Qt::GlobalColor VertexStyle::getBackgroundColor() const
+    inline QColor VertexStyle::getBackgroundColor() const
     {
         return backgroundColor;
     }

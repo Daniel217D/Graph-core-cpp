@@ -16,9 +16,15 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+private slots:
+    void on_changeTheme_changed();
+
+    void on_orientation_changed();
+
 private:
     Ui::MainWindow *ui;
     GraphCore::Graph* graph;
     GraphCore::WhiteTheme* whiteTheme;
+    GraphCore::BlackTheme* blackTheme;
 };
 #endif // MAINWINDOW_H

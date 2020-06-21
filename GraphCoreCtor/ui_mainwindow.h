@@ -33,7 +33,7 @@ public:
     QAction *saveFile;
     QAction *saveAsFile;
     QAction *orientation;
-    QAction *blackTheme;
+    QAction *changeTheme;
     QAction *about;
     QWidget *centralwidget;
     QHBoxLayout *horizontalLayout;
@@ -69,9 +69,9 @@ public:
         orientation->setObjectName(QString::fromUtf8("orientation"));
         orientation->setCheckable(true);
         orientation->setChecked(true);
-        blackTheme = new QAction(MainWindow);
-        blackTheme->setObjectName(QString::fromUtf8("blackTheme"));
-        blackTheme->setCheckable(true);
+        changeTheme = new QAction(MainWindow);
+        changeTheme->setObjectName(QString::fromUtf8("changeTheme"));
+        changeTheme->setCheckable(true);
         about = new QAction(MainWindow);
         about->setObjectName(QString::fromUtf8("about"));
         centralwidget = new QWidget(MainWindow);
@@ -147,7 +147,7 @@ public:
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QString::fromUtf8("menubar"));
-        menubar->setGeometry(QRect(0, 0, 552, 21));
+        menubar->setGeometry(QRect(0, 0, 552, 20));
         fileMenu = new QMenu(menubar);
         fileMenu->setObjectName(QString::fromUtf8("fileMenu"));
         propertyMenu = new QMenu(menubar);
@@ -163,7 +163,7 @@ public:
         fileMenu->addAction(saveFile);
         fileMenu->addAction(saveAsFile);
         propertyMenu->addAction(orientation);
-        propertyMenu->addAction(blackTheme);
+        propertyMenu->addAction(changeTheme);
         propertyMenu->addAction(about);
 
         retranslateUi(MainWindow);
@@ -187,7 +187,7 @@ public:
         saveAsFile->setShortcut(QCoreApplication::translate("MainWindow", "Ctrl+Shift+S", nullptr));
 #endif // QT_CONFIG(shortcut)
         orientation->setText(QCoreApplication::translate("MainWindow", "\320\236\321\200\320\270\320\265\320\275\321\202\320\260\321\206\320\270\321\217", nullptr));
-        blackTheme->setText(QCoreApplication::translate("MainWindow", "\320\247\320\265\321\200\320\275\320\260\321\217 \321\202\320\265\320\274\320\260", nullptr));
+        changeTheme->setText(QCoreApplication::translate("MainWindow", "\320\247\320\265\321\200\320\275\320\260\321\217 \321\202\320\265\320\274\320\260", nullptr));
         about->setText(QCoreApplication::translate("MainWindow", "\320\236 \320\277\321\200\320\276\320\263\321\200\320\260\320\274\320\274\320\265", nullptr));
         lexsButton->setText(QCoreApplication::translate("MainWindow", "\320\234\320\275\320\276\320\266\320\265\321\201\321\202\320\262\320\260 \320\262\320\275\320\265\321\210\320\275\320\265\320\271 \321\203\321\201\321\202\320\276\320\271\321\207\320\270\320\262\320\276\321\201\321\202\320\270", nullptr));
         linsButton->setText(QCoreApplication::translate("MainWindow", "\320\234\320\275\320\276\320\266\320\265\321\201\321\202\320\262\320\260 \320\262\320\275\321\203\321\202\321\200\320\265\320\275\320\275\320\265\320\271 \321\203\321\201\321\202\320\276\320\271\321\207\320\270\320\262\320\276\321\201\321\202\320\270", nullptr));

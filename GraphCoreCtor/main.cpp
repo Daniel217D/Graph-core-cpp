@@ -72,6 +72,7 @@ int main(int argc, char *argv[])
     //graph.update();
 
     MainWindow w;
+
     w.show();
 
     return a.exec();

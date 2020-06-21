@@ -1,0 +1,46 @@
+<RCC>
+    <qresource prefix="/">
+        <file>darkTheme/branch_closed-on.svg</file>
+        <file>darkTheme/branch_closed.svg</file>
+        <file>darkTheme/branch_open-on.svg</file>
+        <file>darkTheme/branch_open.svg</file>
+        <file>darkTheme/checkbox_checked.svg</file>
+        <file>darkTheme/checkbox_checked_disabled.svg</file>
+        <file>darkTheme/checkbox_indeterminate.svg</file>
+        <file>darkTheme/checkbox_indeterminate_disabled.svg</file>
+        <file>darkTheme/checkbox_unchecked.svg</file>
+        <file>darkTheme/checkbox_unchecked_disabled.svg</file>
+        <file>darkTheme/close-hover.svg</file>
+        <file>darkTheme/close-pressed.svg</file>
+        <file>darkTheme/close.svg</file>
+        <file>darkTheme/down_arrow-hover.svg</file>
+        <file>darkTheme/down_arrow.svg</file>
+        <file>darkTheme/down_arrow_disabled.svg</file>
+        <file>darkTheme/hmovetoolbar.svg</file>
+        <file>darkTheme/hsepartoolbar.svg</file>
+        <file>darkTheme/left_arrow.svg</file>
+        <file>darkTheme/left_arrow_disabled.svg</file>
+        <file>darkTheme/radio_checked.svg</file>
+        <file>darkTheme/radio_checked_disabled.svg</file>
+        <file>darkTheme/radio_unchecked.svg</file>
+        <file>darkTheme/radio_unchecked_disabled.svg</file>
+        <file>darkTheme/right_arrow.svg</file>
+        <file>darkTheme/right_arrow_disabled.svg</file>
+        <file>darkTheme/sizegrip.svg</file>
+        <file>darkTheme/spinup_disabled.svg</file>
+        <file>darkTheme/stylesheet-branch-end-closed.svg</file>
+        <file>darkTheme/stylesheet-branch-end-open.svg</file>
+        <file>darkTheme/stylesheet-branch-end.svg</file>
+        <file>darkTheme/stylesheet-branch-more.svg</file>
+        <file>darkTheme/stylesheet-vline.svg</file>
+        <file>darkTheme/transparent.svg</file>
+        <file>darkTheme/undock-hover.svg</file>
+        <file>darkTheme/undock.svg</file>
+        <file>darkTheme/up_arrow-hover.svg</file>
+        <file>darkTheme/up_arrow.svg</file>
+        <file>darkTheme/up_arrow_disabled.svg</file>
+        <file>darkTheme/vmovetoolbar.svg</file>
+        <file>darkTheme/vsepartoolbars.svg</file>
+        <file>darkTheme.qss</file>
+    </qresource>
+</RCC>

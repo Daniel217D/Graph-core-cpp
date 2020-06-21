@@ -6,6 +6,7 @@ release/main.o
 release/mainwindow.o
 release/theme.o
 release/vertex.o
+release/qrc_blackTheme.o
 release/moc_edge.o
 release/moc_mainwindow.o
 release/moc_vertex.o

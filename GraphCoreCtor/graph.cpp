@@ -8,6 +8,7 @@ namespace GraphCore{
         Q_UNUSED(parent);
 
         this->theme = &theme;
+        setBackgroundBrush(this->theme->getGraphBackground());
         this->isOriented = isOriented;
         line = new Line(this->theme->getDefaultEdgeStyle());
 
@@ -83,7 +84,7 @@ namespace GraphCore{
 
     Edge& Graph::createEdge(Vertex *first, Vertex *second, EdgeDirection direction)
     {
-        Edge* edge = new Edge(first, second, direction, getTheme()->getDefaultEdgeStyle());
+        Edge* edge = new Edge(first, second, direction, getTheme()->getDefaultEdgeStyle(), isOriented);
         addItem(edge);
 
         connect(edge, &Edge::needDirectionChanged, this, [&](Edge* sender){
@@ -124,11 +125,11 @@ namespace GraphCore{
         for(int i = 0; i < length; ++i)
             for(Edge* edge : edges)
                 if(vertexies[i] == edge->getFirst()
-                        && (edge->getDirection() == EdgeDirection::All || edge->getDirection() == EdgeDirection::ToSecond)){
+                        && (!isOriented || edge->getDirection() == EdgeDirection::All || edge->getDirection() == EdgeDirection::ToSecond)){
                    int j = vertexies.indexOf(edge->getSecond());
                    matrix[i][j] = true;
                 } else if (vertexies[i] == edge->getSecond()
-                           && (edge->getDirection() == EdgeDirection::All || edge->getDirection() == EdgeDirection::ToFirst)){
+                           && (!isOriented || edge->getDirection() == EdgeDirection::All || edge->getDirection() == EdgeDirection::ToFirst)){
                     int j = vertexies.indexOf(edge->getFirst());
                     matrix[i][j] = true;
                 }
@@ -142,6 +143,10 @@ namespace GraphCore{
     void Graph::setTheme(Theme *value)
     {
         theme = value;
+
+        setBackgroundBrush(this->theme->getGraphBackground());
+
+        line->setStyle(value->getDefaultEdgeStyle());
 
         for(Vertex* vertex : vertexies){
             vertex->setStyle(theme->getDefaultVertexStyle());
@@ -163,6 +168,20 @@ namespace GraphCore{
         } else {
             if(event->button() == Qt::RightButton)
                 removeVertex(*vertex);
+        }
+    }
+
+    bool Graph::getOriented() const
+    {
+        return isOriented;
+    }
+
+    void Graph::setOriented(bool value)
+    {
+        isOriented = value;
+
+        for(Edge* edge : edges){
+            edge->setOriented(isOriented);
         }
     }
 

@@ -29,7 +29,7 @@ namespace GraphCore
          * \param color Цвет линии.
          */
         explicit EdgeStyle(qreal diameter = 0.,
-                             Qt::GlobalColor color = Qt::black,
+                             QColor color = Qt::black,
                              qreal arrowLength = 0.,
                              qreal arrowAngle = 0.);
         /*!
@@ -40,12 +40,12 @@ namespace GraphCore
          * \brief Возвращает диаметр линии.
          * \return Диаметр линии.
          */
-        inline qreal getDiameter() const;
+        qreal getDiameter() const;
         /*!
          * \brief Возвращает цвет линии.
          * \return Цвет линии.
          */
-        inline Qt::GlobalColor getColor() const;
+        QColor getColor() const;
         /*!
          * \brief Возвращает длину лепестков стрелки.
          * \return Длина лепестков стрелки.
@@ -65,7 +65,7 @@ namespace GraphCore
         /*!
          * \brief Цвет линии.
          */
-        Qt::GlobalColor color;
+        QColor color;
         /*!
          * \brief Длина лепестков стрелки.
          */
@@ -95,6 +95,7 @@ namespace GraphCore
                       Vertex* second = nullptr,
                       EdgeDirection direction = EdgeDirection::All,
                       EdgeStyle* style = nullptr,
+                      bool isOriented = true,
                       QObject *parent = nullptr);
         /*!
          * \brief Уничтожает ребро.
@@ -131,6 +132,9 @@ namespace GraphCore
          */
         Vertex* getSecond() const;
 
+        bool getOriented() const;
+        void setOriented(bool value);
+
     signals:
         void needDirectionChanged(Edge* sender);
         void needDestruction(Edge* sender);
@@ -152,6 +156,7 @@ namespace GraphCore
          * \brief Стиль ребра.
          */
         EdgeStyle* style;
+        bool isOriented;
 
         /*!
          * \brief Возвращает четверть, в которой лежит вторая вершина, если первая имеет координаты (0, 0). 0, если одна из вершин nullptr.

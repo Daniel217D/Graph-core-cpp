@@ -4,7 +4,7 @@
 namespace GraphCore
 {
 
-    EdgeStyle::EdgeStyle(qreal diameter, Qt::GlobalColor color, qreal arrowLength, qreal arrowAngle)
+    EdgeStyle::EdgeStyle(qreal diameter, QColor color, qreal arrowLength, qreal arrowAngle)
     {
         this->diameter = diameter;
         this->color = color;
@@ -22,7 +22,7 @@ namespace GraphCore
         return diameter;
     }
 
-    Qt::GlobalColor EdgeStyle::getColor() const
+    QColor EdgeStyle::getColor() const
     {
         return color;
     }
@@ -37,7 +37,7 @@ namespace GraphCore
         return arrowAngle;
     }
 
-    Edge::Edge(Vertex *first, Vertex *second, EdgeDirection direction, EdgeStyle* style, QObject *parent)
+    Edge::Edge(Vertex *first, Vertex *second, EdgeDirection direction, EdgeStyle* style, bool isOriented, QObject *parent)
         : QObject(parent), QGraphicsItem()
     {
         setZValue(0);
@@ -45,6 +45,7 @@ namespace GraphCore
         this->second = second;
         this->direction = direction;
         this->style = style;
+        this->isOriented = isOriented;
 
         //this->setPos(first->x(), first->y());
 
@@ -84,6 +85,17 @@ namespace GraphCore
     Vertex* Edge::getSecond() const
     {
         return second;
+    }
+
+    bool Edge::getOriented() const
+    {
+        return isOriented;
+    }
+
+    void Edge::setOriented(bool value)
+    {
+        isOriented = value;
+        update();
     }
 
     EdgeDirection Edge::getDirection() const
@@ -166,7 +178,7 @@ namespace GraphCore
 
             painter->drawLine(startX, startY, endX, endY);
 
-            if (getDirection() == EdgeDirection::All || getDirection() == EdgeDirection::ToSecond)
+            if (isOriented && (getDirection() == EdgeDirection::All || getDirection() == EdgeDirection::ToSecond))
             {
                 double angle = atan2(endY - startY, endX - startX);
                 for(int i = -1; i < 2; i += 2)
@@ -176,7 +188,7 @@ namespace GraphCore
                                       endY - style.getArrowLength() * sin(angle + i * style.getArrowAngle()));
             }
 
-            if (getDirection() == EdgeDirection::All || getDirection() == EdgeDirection::ToFirst){
+            if (isOriented && (getDirection() == EdgeDirection::All || getDirection() == EdgeDirection::ToFirst)){
             double angle = atan2(startY - endY, startX - endX);
                 for(int i = -1; i < 2; i += 2)
                     painter->drawLine(startX,

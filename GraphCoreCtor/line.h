@@ -12,6 +12,7 @@ namespace GraphCore
         explicit Line(EdgeStyle* style = nullptr, EdgeDirection direction = EdgeDirection::All, QObject *parent = nullptr);
 
         EdgeStyle* getStyle() const;
+        void setStyle(EdgeStyle* value);
         EdgeDirection getDirection() const;
         void setDirection(const EdgeDirection &value);
         void setPoint(Vertex *value);

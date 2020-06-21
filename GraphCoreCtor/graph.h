@@ -57,8 +57,11 @@ namespace GraphCore
          */
         ~Graph();
 
+        bool getOriented() const;
+        void setOriented(bool value);
+
     protected:
-      /*!
+        /*!
        * \brief Действие при двойном нажатии кнопки мыши.
        * \param event Информация о событии.
        */

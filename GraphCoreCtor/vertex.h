@@ -27,10 +27,10 @@ namespace GraphCore
          * \param textColor Цвет текста.
          */
         explicit VertexStyle(qreal radius = 0.,
-                             Qt::GlobalColor backgroundColor = Qt::white,
+                             QColor backgroundColor = Qt::white,
                              qreal circuitPercent = 0.,
-                             Qt::GlobalColor circuitColor = Qt::black,
-                             Qt::GlobalColor textColor = Qt::black);
+                             QColor circuitColor = Qt::black,
+                             QColor textColor = Qt::black);
         /*!
          * Уничтожает вершину.
          */
@@ -44,7 +44,7 @@ namespace GraphCore
          * \brief Возвращает цвет фона.
          * \return Цвет фона.
          */
-        inline Qt::GlobalColor getBackgroundColor() const;
+        inline QColor getBackgroundColor() const;
         /*!
          * \brief Возвращает процент контура.
          * \return Процент контура.
@@ -54,12 +54,12 @@ namespace GraphCore
          * \brief Возвращает цвет контура.
          * \return Цвет контура.
          */
-        inline Qt::GlobalColor getCircuitColor() const;
+        inline QColor getCircuitColor() const;
         /*!
          * \brief Возвращает цвет текста.
          * \return Цвет текста.
          */
-        inline Qt::GlobalColor getTextColor() const;
+        inline QColor getTextColor() const;
 
     private:
         /*!
@@ -69,7 +69,7 @@ namespace GraphCore
         /*!
          * \brief Цвет фона.
          */
-        Qt::GlobalColor backgroundColor;
+        QColor backgroundColor;
         /*!
          * \brief Процент контура.
          */
@@ -77,11 +77,11 @@ namespace GraphCore
         /*!
          * \brief Цвет контура.
          */
-        Qt::GlobalColor circuitColor;
+        QColor circuitColor;
         /*!
          * \brief Цвет текста.
          */
-        Qt::GlobalColor textColor;
+        QColor textColor;
     };
 
     /*!

@@ -111,7 +111,7 @@
      <x>0</x>
      <y>0</y>
      <width>552</width>
-     <height>21</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="fileMenu">
@@ -127,7 +127,7 @@
      <string>Свойства</string>
     </property>
     <addaction name="orientation"/>
-    <addaction name="blackTheme"/>
+    <addaction name="changeTheme"/>
     <addaction name="about"/>
    </widget>
    <addaction name="fileMenu"/>
@@ -169,7 +169,7 @@
     <string>Ориентация</string>
    </property>
   </action>
-  <action name="blackTheme">
+  <action name="changeTheme">
    <property name="checkable">
     <bool>true</bool>
    </property>

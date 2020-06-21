@@ -3,6 +3,8 @@
 #include <QGraphicsView>
 
 #include "graph.h"
+#include <QFile>
+#include <QTextStream>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -13,7 +15,9 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 
     whiteTheme = new WhiteTheme();
-    graph = new Graph(*whiteTheme, this->ui->orientation, this);
+    blackTheme = new BlackTheme();
+    Theme* theme = ui->changeTheme->isChecked() ? (Theme*)blackTheme : (Theme*)whiteTheme;
+    graph = new Graph(*theme, this->ui->orientation, this);
 
     /*Vertex& v1 = graph->createVertex(-32, -23, nullptr);
     Vertex&  v2 = graph->createVertex(102, -27, nullptr);
@@ -82,3 +86,25 @@ MainWindow::~MainWindow()
     delete whiteTheme;
 }
 
+void MainWindow::on_changeTheme_changed()
+{
+    if (ui->changeTheme->isChecked()){
+        QFile file(":/darkTheme.qss");
+        file.open(QIODevice::Text | QIODevice::ReadOnly);
+        QTextStream stream(&file);
+        setStyleSheet(stream.readAll());
+
+        graph->setTheme(blackTheme);
+
+        file.close();
+    } else {
+        this->setStyleSheet("");
+
+        graph->setTheme(whiteTheme);
+    }
+}
+
+void MainWindow::on_orientation_changed()
+{
+    graph->setOriented(ui->orientation->isChecked());
+}
