@@ -26,5 +26,11 @@ private:
     GraphCore::Graph* graph;
     GraphCore::WhiteTheme* whiteTheme;
     GraphCore::BlackTheme* blackTheme;
+
+    /*!
+     * \brief Меняет тему окна приложения относительно темы графа.
+     * \param theme Тема графа.
+     */
+    void changeTheme(GraphCore::Theme* theme);
 };
 #endif // MAINWINDOW_H

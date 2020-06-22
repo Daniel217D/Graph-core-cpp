@@ -185,6 +185,60 @@ namespace GraphCore{
         }
     }
 
+    GraphData& Graph::serialize() const
+    {
+        GraphData* data = new GraphData();
+
+        data->isOriented = isOriented;
+
+        QVector<Vertex*> vertexies = this->vertexies.toVector();
+        data->vertexiesCount = vertexies.size();
+        data->vertexiesData = new VertexData[data->vertexiesCount];
+        for(auto index = 0; index < vertexies.size(); ++index){
+            data->vertexiesData[index].id = index;
+            data->vertexiesData[index].x = vertexies[index]->x();
+            data->vertexiesData[index].y = vertexies[index]->y();
+        }
+
+        QVector<Edge*> edges = this->edges.toVector();
+        data->edgesCount = edges.size();
+        data->edgesData = new EdgeData[data->edgesCount];
+        for(auto index = 0; index < edges.size(); ++index){
+           data->edgesData[index].firstID = vertexies.indexOf(edges[index]->getFirst());
+           data->edgesData[index].secondID = vertexies.indexOf(edges[index]->getSecond());
+           data->edgesData[index].direction = static_cast<int>(edges[index]->getDirection());
+        }
+
+        return *data;
+    }
+
+    Graph* Graph::deserialize(GraphData& data, Theme& theme, bool isOriented, QWidget *parent)
+    {
+        Graph* graph = new Graph(theme, isOriented, parent);
+
+        QVector<Vertex*> vertixies(data.vertexiesCount);
+        for(auto index = 0u; index < data.vertexiesCount; ++index){
+            auto i = 0u;
+            while(data.vertexiesData[i].id != index){
+                ++i;
+                if (i >= data.vertexiesCount){
+                    delete graph;
+                    return nullptr;
+                }
+                continue;
+            }
+            vertixies[index] = &graph->createVertex(data.vertexiesData[i].x, data.vertexiesData[i].y);
+        }
+
+        for(auto index = 0u; index < data.edgesCount; ++index){
+            graph->createEdge(vertixies[data.edgesData[index].firstID],
+                    vertixies[data.edgesData[index].secondID],
+                    static_cast<EdgeDirection>(data.edgesData[index].direction));
+        }
+
+        return graph;
+    }
+
     Vertex* Graph::getAnotherVertex(const Vertex* vertex)
     {
         for(Vertex* element : vertexies){

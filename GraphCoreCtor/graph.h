@@ -1,6 +1,7 @@
 #ifndef GRAPHCORE_H
 #define GRAPHCORE_H
 
+#include "data.h"
 #include "theme.h"
 
 namespace GraphCore
@@ -59,6 +60,10 @@ namespace GraphCore
 
         bool getOriented() const;
         void setOriented(bool value);
+
+        GraphData& serialize() const;
+
+        static Graph* deserialize(GraphData& data, Theme& theme, bool isOriented = true, QWidget *parent = nullptr);
 
     protected:
         /*!
