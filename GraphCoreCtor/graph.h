@@ -43,6 +43,7 @@ namespace GraphCore
          * \param edge Ребро.
          */
         void removeEdge(Edge& edge);
+        void removeAll();
         /*!
          * \brief Создает квадратную матрицу смежности в динамической памяти по текущему состоянию графа.
          * \param matrix Квадратная матрица смежности.

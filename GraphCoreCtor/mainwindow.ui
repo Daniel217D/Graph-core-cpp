@@ -121,6 +121,7 @@
     <addaction name="openFile"/>
     <addaction name="saveFile"/>
     <addaction name="saveAsFile"/>
+    <addaction name="clearAll"/>
    </widget>
    <widget class="QMenu" name="propertyMenu">
     <property name="title">
@@ -168,6 +169,9 @@
    <property name="text">
     <string>Ориентация</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
+   </property>
   </action>
   <action name="changeTheme">
    <property name="checkable">
@@ -176,10 +180,21 @@
    <property name="text">
     <string>Черная тема</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+T</string>
+   </property>
   </action>
   <action name="about">
    <property name="text">
     <string>О программе</string>
+   </property>
+  </action>
+  <action name="clearAll">
+   <property name="text">
+    <string>Очистить все</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Del</string>
    </property>
   </action>
  </widget>

@@ -111,6 +111,15 @@ namespace GraphCore{
         //edge.deleteLater(); //Удаление кладет память X(
     }
 
+    void Graph::removeAll()
+    {
+        for(Vertex* vertex : vertexies)
+            removeVertex(*vertex);
+
+        for(Edge* edge : edges)
+            removeEdge(*edge);
+    }
+
     void Graph::createAdjacencyMatrix(bool**& matrix, int& length)
     {
         QVector<Vertex*> vertexies = this->vertexies.toVector();
@@ -214,11 +223,7 @@ namespace GraphCore{
 
     void Graph::deserialize(GraphData &data)
     {
-        for(Vertex* vertex : vertexies)
-            removeVertex(*vertex);
-
-        for(Edge* edge : edges)
-            removeEdge(*edge);
+        removeAll();
 
         isOriented = data.isOriented;
 

@@ -35,6 +35,7 @@ public:
     QAction *orientation;
     QAction *changeTheme;
     QAction *about;
+    QAction *clearAll;
     QWidget *centralwidget;
     QHBoxLayout *horizontalLayout;
     QGridLayout *graphLayout;
@@ -74,6 +75,8 @@ public:
         changeTheme->setCheckable(true);
         about = new QAction(MainWindow);
         about->setObjectName(QString::fromUtf8("about"));
+        clearAll = new QAction(MainWindow);
+        clearAll->setObjectName(QString::fromUtf8("clearAll"));
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         horizontalLayout = new QHBoxLayout(centralwidget);
@@ -162,6 +165,7 @@ public:
         fileMenu->addAction(openFile);
         fileMenu->addAction(saveFile);
         fileMenu->addAction(saveAsFile);
+        fileMenu->addAction(clearAll);
         propertyMenu->addAction(orientation);
         propertyMenu->addAction(changeTheme);
         propertyMenu->addAction(about);
@@ -187,8 +191,18 @@ public:
         saveAsFile->setShortcut(QCoreApplication::translate("MainWindow", "Ctrl+Shift+S", nullptr));
 #endif // QT_CONFIG(shortcut)
         orientation->setText(QCoreApplication::translate("MainWindow", "\320\236\321\200\320\270\320\265\320\275\321\202\320\260\321\206\320\270\321\217", nullptr));
+#if QT_CONFIG(shortcut)
+        orientation->setShortcut(QCoreApplication::translate("MainWindow", "Ctrl+O", nullptr));
+#endif // QT_CONFIG(shortcut)
         changeTheme->setText(QCoreApplication::translate("MainWindow", "\320\247\320\265\321\200\320\275\320\260\321\217 \321\202\320\265\320\274\320\260", nullptr));
+#if QT_CONFIG(shortcut)
+        changeTheme->setShortcut(QCoreApplication::translate("MainWindow", "Ctrl+T", nullptr));
+#endif // QT_CONFIG(shortcut)
         about->setText(QCoreApplication::translate("MainWindow", "\320\236 \320\277\321\200\320\276\320\263\321\200\320\260\320\274\320\274\320\265", nullptr));
+        clearAll->setText(QCoreApplication::translate("MainWindow", "\320\236\321\207\320\270\321\201\321\202\320\270\321\202\321\214 \320\262\321\201\320\265", nullptr));
+#if QT_CONFIG(shortcut)
+        clearAll->setShortcut(QCoreApplication::translate("MainWindow", "Ctrl+Del", nullptr));
+#endif // QT_CONFIG(shortcut)
         lexsButton->setText(QCoreApplication::translate("MainWindow", "\320\234\320\275\320\276\320\266\320\265\321\201\321\202\320\262\320\260 \320\262\320\275\320\265\321\210\320\275\320\265\320\271 \321\203\321\201\321\202\320\276\320\271\321\207\320\270\320\262\320\276\321\201\321\202\320\270", nullptr));
         linsButton->setText(QCoreApplication::translate("MainWindow", "\320\234\320\275\320\276\320\266\320\265\321\201\321\202\320\262\320\260 \320\262\320\275\321\203\321\202\321\200\320\265\320\275\320\275\320\265\320\271 \321\203\321\201\321\202\320\276\320\271\321\207\320\270\320\262\320\276\321\201\321\202\320\270", nullptr));
         lcsButton->setText(QCoreApplication::translate("MainWindow", "\320\257\320\264\321\200\320\260", nullptr));

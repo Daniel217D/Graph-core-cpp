@@ -105,3 +105,8 @@ void MainWindow::on_saveAsFile_triggered()
         on_saveFile_triggered();
     }
 }
+
+void MainWindow::on_clearAll_triggered()
+{
+    graph->removeAll();
+}

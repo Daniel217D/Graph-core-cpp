@@ -27,6 +27,8 @@ private slots:
 
     void on_saveAsFile_triggered();
 
+    void on_clearAll_triggered();
+
 private:
     Ui::MainWindow *ui;
     QGraphicsView* graphView;
