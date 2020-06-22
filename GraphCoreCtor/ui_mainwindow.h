@@ -37,7 +37,7 @@ public:
     QAction *about;
     QWidget *centralwidget;
     QHBoxLayout *horizontalLayout;
-    QGridLayout *graphView;
+    QGridLayout *graphLayout;
     QVBoxLayout *propertyView;
     QLabel *lexsButton;
     QListView *lexList;
@@ -78,10 +78,10 @@ public:
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         horizontalLayout = new QHBoxLayout(centralwidget);
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
-        graphView = new QGridLayout();
-        graphView->setObjectName(QString::fromUtf8("graphView"));
+        graphLayout = new QGridLayout();
+        graphLayout->setObjectName(QString::fromUtf8("graphLayout"));
 
-        horizontalLayout->addLayout(graphView);
+        horizontalLayout->addLayout(graphLayout);
 
         propertyView = new QVBoxLayout();
         propertyView->setObjectName(QString::fromUtf8("propertyView"));

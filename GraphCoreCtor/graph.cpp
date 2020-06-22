@@ -212,9 +212,15 @@ namespace GraphCore{
         return *data;
     }
 
-    Graph* Graph::deserialize(GraphData& data, Theme& theme, bool isOriented, QWidget *parent)
+    void Graph::deserialize(GraphData &data)
     {
-        Graph* graph = new Graph(theme, isOriented, parent);
+        for(Vertex* vertex : vertexies)
+            removeVertex(*vertex);
+
+        for(Edge* edge : edges)
+            removeEdge(*edge);
+
+        isOriented = data.isOriented;
 
         QVector<Vertex*> vertixies(data.vertexiesCount);
         for(auto index = 0u; index < data.vertexiesCount; ++index){
@@ -222,21 +228,18 @@ namespace GraphCore{
             while(data.vertexiesData[i].id != index){
                 ++i;
                 if (i >= data.vertexiesCount){
-                    delete graph;
-                    return nullptr;
+                    return;
                 }
                 continue;
             }
-            vertixies[index] = &graph->createVertex(data.vertexiesData[i].x, data.vertexiesData[i].y);
+            vertixies[index] = &createVertex(data.vertexiesData[i].x, data.vertexiesData[i].y);
         }
 
         for(auto index = 0u; index < data.edgesCount; ++index){
-            graph->createEdge(vertixies[data.edgesData[index].firstID],
+            createEdge(vertixies[data.edgesData[index].firstID],
                     vertixies[data.edgesData[index].secondID],
                     static_cast<EdgeDirection>(data.edgesData[index].direction));
         }
-
-        return graph;
     }
 
     Vertex* Graph::getAnotherVertex(const Vertex* vertex)

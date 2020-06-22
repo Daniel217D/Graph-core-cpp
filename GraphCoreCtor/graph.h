@@ -62,8 +62,7 @@ namespace GraphCore
         void setOriented(bool value);
 
         GraphData& serialize() const;
-
-        static Graph* deserialize(GraphData& data, Theme& theme, bool isOriented = true, QWidget *parent = nullptr);
+        void deserialize(GraphData& data);
 
     protected:
         /*!

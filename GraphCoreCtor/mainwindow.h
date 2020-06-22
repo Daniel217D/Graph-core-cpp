@@ -21,11 +21,19 @@ private slots:
 
     void on_orientation_changed();
 
+    void on_openFile_triggered();
+
+    void on_saveFile_triggered();
+
+    void on_saveAsFile_triggered();
+
 private:
     Ui::MainWindow *ui;
+    QGraphicsView* graphView;
     GraphCore::Graph* graph;
     GraphCore::WhiteTheme* whiteTheme;
     GraphCore::BlackTheme* blackTheme;
+    QString currentFilename;
 
     /*!
      * \brief Меняет тему окна приложения относительно темы графа.

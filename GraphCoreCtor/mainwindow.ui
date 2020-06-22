@@ -22,7 +22,7 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
-     <layout class="QGridLayout" name="graphView"/>
+     <layout class="QGridLayout" name="graphLayout"/>
     </item>
     <item>
      <layout class="QVBoxLayout" name="propertyView">
