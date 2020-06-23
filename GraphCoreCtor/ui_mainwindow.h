@@ -15,7 +15,7 @@
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
-#include <QtWidgets/QListView>
+#include <QtWidgets/QListWidget>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
@@ -41,11 +41,11 @@ public:
     QGridLayout *graphLayout;
     QVBoxLayout *propertyView;
     QLabel *lexsButton;
-    QListView *lexList;
+    QListWidget *lexList;
     QLabel *linsButton;
-    QListView *linsList;
+    QListWidget *linsList;
     QLabel *lcsButton;
-    QListView *lcsList;
+    QListWidget *lcsList;
     QHBoxLayout *buttonsView;
     QPushButton *removeSelectButton;
     QPushButton *findCoresButton;
@@ -73,8 +73,10 @@ public:
         changeTheme = new QAction(MainWindow);
         changeTheme->setObjectName(QString::fromUtf8("changeTheme"));
         changeTheme->setCheckable(true);
+        changeTheme->setChecked(true);
         about = new QAction(MainWindow);
         about->setObjectName(QString::fromUtf8("about"));
+        about->setVisible(false);
         clearAll = new QAction(MainWindow);
         clearAll->setObjectName(QString::fromUtf8("clearAll"));
         centralwidget = new QWidget(MainWindow);
@@ -99,7 +101,7 @@ public:
 
         propertyView->addWidget(lexsButton);
 
-        lexList = new QListView(centralwidget);
+        lexList = new QListWidget(centralwidget);
         lexList->setObjectName(QString::fromUtf8("lexList"));
 
         propertyView->addWidget(lexList);
@@ -111,7 +113,7 @@ public:
 
         propertyView->addWidget(linsButton);
 
-        linsList = new QListView(centralwidget);
+        linsList = new QListWidget(centralwidget);
         linsList->setObjectName(QString::fromUtf8("linsList"));
 
         propertyView->addWidget(linsList);
@@ -123,7 +125,7 @@ public:
 
         propertyView->addWidget(lcsButton);
 
-        lcsList = new QListView(centralwidget);
+        lcsList = new QListWidget(centralwidget);
         lcsList->setObjectName(QString::fromUtf8("lcsList"));
 
         propertyView->addWidget(lcsList);

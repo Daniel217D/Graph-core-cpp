@@ -9,5 +9,6 @@ release/theme.o
 release/vertex.o
 release/qrc_darkTheme.o
 release/moc_edge.o
+release/moc_graphstability.o
 release/moc_mainwindow.o
 release/moc_vertex.o

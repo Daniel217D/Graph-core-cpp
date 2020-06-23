@@ -54,6 +54,10 @@ namespace GraphCore
         Theme* getTheme() const;
         void setTheme(Theme* value);
 
+        Vertex* getVertexByName(QString name);
+        void selectVertex(QStringList* names = nullptr);
+        void deselectVertex(QStringList* names = nullptr);
+
         /*!
          * \brief Уничтожает граф.
          */

@@ -166,6 +166,40 @@ namespace GraphCore{
         }
     }
 
+    Vertex* Graph::getVertexByName(QString name)
+    {
+        for(Vertex* vertex : vertexies)
+            if (vertex->getName() == name)
+                return vertex;
+        return nullptr;
+    }
+
+    void Graph::selectVertex(QStringList* names){
+        if (names != nullptr){
+            for(QString& name : *names){
+                Vertex* vertex = getVertexByName(name);
+                if (vertex != nullptr)
+                    vertex->setStyle(theme->getHighlightedVertexStyle());
+            }
+        } else {
+            for(Vertex* vertex : vertexies)
+                vertex->setStyle(theme->getHighlightedVertexStyle());
+        }
+    }
+
+    void Graph::deselectVertex(QStringList* names){
+        if (names != nullptr){
+            for(QString& name : *names){
+                Vertex* vertex = getVertexByName(name);
+                if (vertex != nullptr)
+                    vertex->setStyle(theme->getDefaultVertexStyle());
+            }
+        } else {
+            for(Vertex* vertex : vertexies)
+                vertex->setStyle(theme->getDefaultVertexStyle());
+        }
+    }
+
     void Graph::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
     {
         QGraphicsScene::mouseDoubleClickEvent(event);

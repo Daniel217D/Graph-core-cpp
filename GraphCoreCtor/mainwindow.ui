@@ -46,7 +46,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QListView" name="lexList"/>
+       <widget class="QListWidget" name="lexList"/>
       </item>
       <item>
        <widget class="QLabel" name="linsButton">
@@ -62,7 +62,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QListView" name="linsList"/>
+       <widget class="QListWidget" name="linsList"/>
       </item>
       <item>
        <widget class="QLabel" name="lcsButton">
@@ -78,7 +78,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QListView" name="lcsList"/>
+       <widget class="QListWidget" name="lcsList"/>
       </item>
       <item>
        <layout class="QHBoxLayout" name="buttonsView">
@@ -177,6 +177,9 @@
    <property name="checkable">
     <bool>true</bool>
    </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
    <property name="text">
     <string>Черная тема</string>
    </property>
@@ -187,6 +190,9 @@
   <action name="about">
    <property name="text">
     <string>О программе</string>
+   </property>
+   <property name="visible">
+    <bool>false</bool>
    </property>
   </action>
   <action name="clearAll">

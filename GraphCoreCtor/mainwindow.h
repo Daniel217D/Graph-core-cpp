@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "graph.h"
+#include <QListWidgetItem>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -28,6 +29,16 @@ private slots:
     void on_saveAsFile_triggered();
 
     void on_clearAll_triggered();
+
+    void on_removeSelectButton_clicked();
+
+    void on_lexList_itemDoubleClicked(QListWidgetItem *item);
+
+    void on_linsList_itemDoubleClicked(QListWidgetItem *item);
+
+    void on_lcsList_itemDoubleClicked(QListWidgetItem *item);
+
+    void on_findCoresButton_clicked();
 
 private:
     Ui::MainWindow *ui;

@@ -1,10 +1,33 @@
 #ifndef GRAPHEXTERNALSTABILITY_H
 #define GRAPHEXTERNALSTABILITY_H
 
+#include <QThread>
 #include "graph.h"
 
 namespace GraphCore
 {
+    class CoreFinderProgress
+    {
+
+    };
+
+    class CoreFinderThread : public QThread
+    {
+        Q_OBJECT
+
+    public:
+        CoreFinderThread();
+        ~CoreFinderThread();
+
+    signals:
+        void progressChanged(CoreFinderProgress& progress);
+
+    private:
+        CoreFinderProgress* progress;
+
+        void run() override;
+    };
+
     /*!
      * \brief Множество устойчивости.
      */

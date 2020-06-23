@@ -47,4 +47,20 @@ namespace GraphCore
 
     }
 
+    CoreFinderThread::CoreFinderThread()
+        :QThread()
+    {
+        this->progress = new CoreFinderProgress();
+    }
+
+    CoreFinderThread::~CoreFinderThread()
+    {
+        delete progress;
+    }
+
+    void CoreFinderThread::run()
+    {
+        QThread::sleep(10);
+    }
+
 }

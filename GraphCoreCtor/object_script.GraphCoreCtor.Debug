@@ -9,5 +9,6 @@ debug/theme.o
 debug/vertex.o
 debug/qrc_darkTheme.o
 debug/moc_edge.o
+debug/moc_graphstability.o
 debug/moc_mainwindow.o
 debug/moc_vertex.o
