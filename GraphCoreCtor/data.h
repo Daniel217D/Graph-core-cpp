@@ -2,6 +2,7 @@
 #define DATA_H
 
 #include <QString>
+#include "edge.h"
 
 namespace GraphCore
 {
@@ -40,7 +41,7 @@ namespace GraphCore
         /*!
          * \brief Направление ребра.
          */
-        int direction;
+        EdgeDirection direction;
     };
 
     /*!
@@ -72,7 +73,9 @@ namespace GraphCore
          * \brief Массив сериализованных данных о ребрах.
         */
         EdgeData* edgesData = nullptr;
-
+        /*!
+         * Уничтожает cериализованные данные графа.
+         */
         ~GraphData();
     };
 
@@ -84,7 +87,7 @@ namespace GraphCore
     bool saveGraphData(GraphData& data, QString filename);
 
     /*!
-     * \brief Возвращает сериализованные данные из файла.
+     * \brief Создает в памяти сериализованные данные из файла и возвращает указатель на них. Возвращает NULL, если произошла ошибка.
      * \param filename Имя файла.
      */
     GraphData* restoreGraphData(QString filename);

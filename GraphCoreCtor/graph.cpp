@@ -120,30 +120,6 @@ namespace GraphCore{
             removeEdge(*edge);
     }
 
-    void Graph::createAdjacencyMatrix(bool**& matrix, int& length)
-    {
-        QVector<Vertex*> vertexies = this->vertexies.toVector();
-        length = vertexies.size();
-
-        matrix = new bool*[length];
-        for(int i = 0; i < length; ++i){
-            matrix[i] = new bool[length];
-            memset(matrix[i], 0, length * sizeof(bool));
-        }
-
-        for(int i = 0; i < length; ++i)
-            for(Edge* edge : edges)
-                if(vertexies[i] == edge->getFirst()
-                        && (!isOriented || edge->getDirection() == EdgeDirection::All || edge->getDirection() == EdgeDirection::ToSecond)){
-                   int j = vertexies.indexOf(edge->getSecond());
-                   matrix[i][j] = true;
-                } else if (vertexies[i] == edge->getSecond()
-                           && (!isOriented || edge->getDirection() == EdgeDirection::All || edge->getDirection() == EdgeDirection::ToFirst)){
-                    int j = vertexies.indexOf(edge->getFirst());
-                    matrix[i][j] = true;
-                }
-    }
-
     Theme *Graph::getTheme() const
     {
         return theme;
@@ -249,7 +225,7 @@ namespace GraphCore{
         for(auto index = 0; index < edges.size(); ++index){
            data->edgesData[index].firstID = vertexies.indexOf(edges[index]->getFirst());
            data->edgesData[index].secondID = vertexies.indexOf(edges[index]->getSecond());
-           data->edgesData[index].direction = static_cast<int>(edges[index]->getDirection());
+           data->edgesData[index].direction = edges[index]->getDirection();
         }
 
         return *data;
@@ -277,7 +253,7 @@ namespace GraphCore{
         for(auto index = 0u; index < data.edgesCount; ++index){
             createEdge(vertixies[data.edgesData[index].firstID],
                     vertixies[data.edgesData[index].secondID],
-                    static_cast<EdgeDirection>(data.edgesData[index].direction));
+                    data.edgesData[index].direction);
         }
     }
 

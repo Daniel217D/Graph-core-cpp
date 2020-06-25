@@ -179,7 +179,7 @@ public:
 
     void retranslateUi(QMainWindow *MainWindow)
     {
-        MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
+        MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "GraphCoreCtor", nullptr));
         openFile->setText(QCoreApplication::translate("MainWindow", "\320\236\321\202\320\272\321\200\321\213\321\202\321\214", nullptr));
 #if QT_CONFIG(shortcut)
         openFile->setShortcut(QCoreApplication::translate("MainWindow", "Ctrl+N", nullptr));

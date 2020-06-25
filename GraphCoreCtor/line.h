@@ -1,7 +1,7 @@
 #ifndef LINE_H
 #define LINE_H
 
-#include "edge.h"
+#include "data.h"
 
 namespace GraphCore
 {

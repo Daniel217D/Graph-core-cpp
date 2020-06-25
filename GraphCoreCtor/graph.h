@@ -1,7 +1,6 @@
 #ifndef GRAPHCORE_H
 #define GRAPHCORE_H
 
-#include "data.h"
 #include "theme.h"
 
 namespace GraphCore
@@ -44,12 +43,6 @@ namespace GraphCore
          */
         void removeEdge(Edge& edge);
         void removeAll();
-        /*!
-         * \brief Создает квадратную матрицу смежности в динамической памяти по текущему состоянию графа.
-         * \param matrix Квадратная матрица смежности.
-         * \param length Длина квадратной матрицы.
-         */
-        void createAdjacencyMatrix(bool**& matrix, int& length);
 
         Theme* getTheme() const;
         void setTheme(Theme* value);

@@ -5,8 +5,8 @@ namespace GraphCore
 {
 
     GraphData::~GraphData(){
-        delete vertexiesData;
-        delete edgesData;
+        delete[] vertexiesData;
+        delete[] edgesData;
     }
 
     bool saveGraphData(GraphData& data, QString filename)
