@@ -1646,3 +1646,8 @@ QDoubleSpinBox::down-arrow:off
 {
    border-image: url(:/darkTheme/down_arrow_disabled.svg);
 }
+
+QGraphicsView::enabled
+{
+color: #31363b; 
+}

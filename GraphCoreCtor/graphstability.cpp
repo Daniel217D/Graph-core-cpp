@@ -34,37 +34,69 @@ namespace GraphCore
         unsigned int length;
         bool** matrix;
 
+        this->progress->setTextStatus("Нахождение матрицы смежности");
+        this->progress->setPercentage(0.);
+        emit progressChanged(this->progress);
         gexternal->createAdjacencyMatrix(matrix, length);
 
         if(length > 0){
+            this->progress->setTextStatus("Нахождение конъюнкторов внутренней устойчивости");
+            this->progress->setPercentage(10.);
+            emit progressChanged(this->progress);
             auto conjunctions_in = ginternal->generateConjunctions(matrix, length);
+
             auto conjunctions_ex = gexternal->generateConjunctions(matrix, length);
+            this->progress->setTextStatus("Нахождение конъюнкторов внешней устойчивости");
+            this->progress->setPercentage(20.);
+            emit progressChanged(this->progress);
 
             for(auto i = 0u; i < length; ++i)
                 delete[] matrix[i];
             delete[] matrix;
 
+            this->progress->setTextStatus("Нахождение СДНФ внутренней устойчивости");
+            this->progress->setPercentage(30.);
+            emit progressChanged(this->progress);
             auto sdnf_in = ginternal->generateSdnf(*conjunctions_in);
             delete conjunctions_in;
+
+            this->progress->setTextStatus("Нахождение СДНФ внешней устойчивости");
+            this->progress->setPercentage(40.);
+            emit progressChanged(this->progress);
             auto sdnf_ex = gexternal->generateSdnf(*conjunctions_ex);
             delete conjunctions_ex;
 
+            this->progress->setTextStatus("Нахождение множества перестановок СДНФ внешней устойчивости");
+            this->progress->setPercentage(50.);
+            emit progressChanged(this->progress);
             auto sdnfPermutations_ex = gexternal->generateSdnfPermutations(*sdnf_ex);
             delete sdnf_ex;
 
+            this->progress->setTextStatus("Нахождение МСДНФ внутренней устойчивости");
+            this->progress->setPercentage(60.);
+            emit progressChanged(this->progress);
             auto msdnf_in = ginternal->generateMsdnf(*sdnf_in);
             delete sdnf_in;
 
+            this->progress->setTextStatus("Нахождение МСДНФ внешней устойчивости");
+            this->progress->setPercentage(70.);
+            emit progressChanged(this->progress);
             result_ex = gexternal->generateMsdnf(*sdnfPermutations_ex);
             delete sdnfPermutations_ex;
             temp = vectorOfVectorToStringList(*result_ex);
             emit externalFounded(temp);
 
+            this->progress->setTextStatus("Нахождение булевна МСДНФ внутренней устойчивости");
+            this->progress->setPercentage(80.);
+            emit progressChanged(this->progress);
             result_in = ginternal->generateBooleanMsdnf(*msdnf_in);
-            temp = vectorOfVectorToStringList(*result_in);
             delete msdnf_in;
+            temp = vectorOfVectorToStringList(*result_in);
             emit internalFounded(temp);
 
+            this->progress->setTextStatus("Нахождение ядра");
+            this->progress->setPercentage(90.);
+            emit progressChanged(this->progress);
             result_c = findCores(*result_in, *result_ex);
             temp = vectorOfVectorToStringList(*result_c);
             emit coreFounded(temp);
@@ -480,6 +512,32 @@ namespace GraphCore
         }
 
         return result;
+    }
+
+    CoreFinderProgress::CoreFinderProgress()
+    {
+
+    }
+
+    CoreFinderProgress::~CoreFinderProgress()
+    {
+
+    }
+
+    QString CoreFinderProgress::toString() const
+    {
+        auto zpercentage = round(this->percentage);
+        return QString::number(zpercentage) + "% | " + this->textStatus;
+    }
+
+    void CoreFinderProgress::setTextStatus(const QString &value)
+    {
+        textStatus = value;
+    }
+
+    void CoreFinderProgress::setPercentage(const qreal &value)
+    {
+        percentage = value;
     }
 
 }

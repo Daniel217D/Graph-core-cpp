@@ -4,6 +4,8 @@
 #include <QMainWindow>
 #include "graph.h"
 #include <QListWidgetItem>
+#include <QGraphicsView>
+#include <QLabel>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -40,6 +42,8 @@ private slots:
 
     void on_findCoresButton_clicked();
 
+    void on_about_triggered();
+
 private:
     Ui::MainWindow *ui;
     QGraphicsView* graphView;
@@ -47,6 +51,7 @@ private:
     GraphCore::WhiteTheme* whiteTheme;
     GraphCore::BlackTheme* blackTheme;
     QString currentFilename;
+    QLabel* progressLabel;
 
     /*!
      * \brief Меняет тему окна приложения относительно темы графа.

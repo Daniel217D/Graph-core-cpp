@@ -16,6 +16,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    aboutdialog.cpp \
     data.cpp \
     edge.cpp \
     graph.cpp \
@@ -27,6 +28,7 @@ SOURCES += \
     vertex.cpp
 
 HEADERS += \
+    aboutdialog.h \
     data.h \
     edge.h \
     graph.h \
@@ -37,6 +39,7 @@ HEADERS += \
     vertex.h
 
 FORMS += \
+    aboutdialog.ui \
     mainwindow.ui
 
 RC_ICONS += \

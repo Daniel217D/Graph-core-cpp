@@ -191,7 +191,39 @@ namespace GraphCore
      */
     class CoreFinderProgress
     {
+    public:
+        /*!
+         * \brief Инициализирует прогресс нахождения ядра.
+         */
+        CoreFinderProgress();
+        /*!
+         * \brief Уничтожает прогресс нахождения ядра.
+         */
+        ~CoreFinderProgress();
+        /*!
+         * \brief Преобразует CoreFinderProgress типу QString.
+         */
+        QString toString() const;
+        /*!
+         * \brief Устанавливает значение статуса.
+         * \param value Статус.
+         */
+        void setTextStatus(const QString &value);
+        /*!
+         * \brief Устанавливает значение процента выполнения.
+         * \param value Процент выполнения.
+         */
+        void setPercentage(const qreal &value);
 
+    private:
+        /*!
+         * \brief Статус.
+         */
+        QString textStatus;
+        /*!
+         * \brief Процент выполнения.
+         */
+        qreal percentage;
     };
 
     /*!
@@ -222,7 +254,7 @@ namespace GraphCore
          * \brief Возникает, когда произошло ключевое событие в процессе поиска ядра.
          * \param progress Прогресс нахождения ядра.
          */
-        void progressChanged(CoreFinderProgress& progress);
+        void progressChanged(CoreFinderProgress* progress);
         /*!
          * \brief Возникает, когда найдено множество внешней устойчивости найдено.
          * \param progress Прогресс нахождения ядра.

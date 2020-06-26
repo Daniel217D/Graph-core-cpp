@@ -1,12 +1,12 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include <QGraphicsView>
-
 #include "graph.h"
+#include "aboutdialog.h"
 #include "graphstability.h"
 #include <QFile>
 #include <QTextStream>
 #include <QFileDialog>
+
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -15,6 +15,10 @@ MainWindow::MainWindow(QWidget *parent)
     using namespace GraphCore;
 
     ui->setupUi(this);
+
+    progressLabel = new QLabel();
+    progressLabel->setVisible(false);
+    ui->statusbar->addWidget(progressLabel);
 
     whiteTheme = new WhiteTheme();
     blackTheme = new BlackTheme();
@@ -35,7 +39,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     graphView = new QGraphicsView(graph);
     ui->graphLayout->addWidget(graphView);
-    graph->setSceneRect(0, 0, 4096, 4096);
+    graph->setSceneRect(0, 0, 1024, 1024);
+    graphView->centerOn(0, 0);
 }
 
 MainWindow::~MainWindow()
@@ -43,6 +48,7 @@ MainWindow::~MainWindow()
     delete ui;
     delete graph;
     delete whiteTheme;
+    delete progressLabel;
 }
 
 void MainWindow::on_changeTheme_changed()
@@ -63,12 +69,14 @@ void MainWindow::changeTheme(GraphCore::Theme *theme)
 {
     if (theme == whiteTheme){
         setStyleSheet("");
+        this->progressLabel->setStyleSheet(":disabled { color: black; }");
     } else if (theme == blackTheme) {
         QString filename = ":/darkTheme.qss";
         QFile file(filename);
         file.open(QIODevice::Text | QIODevice::ReadOnly);
         QTextStream stream(&file);
         setStyleSheet(stream.readAll());
+        this->progressLabel->setStyleSheet(":disabled { color: white; }");
         file.close();
     }
 }
@@ -87,6 +95,8 @@ void MainWindow::on_openFile_triggered()
             ui->linsList->clear();
             ui->lexList->clear();
             ui->lcsList->clear();
+
+            graphView->centerOn(0, 0);
         }
     }
 }
@@ -151,10 +161,13 @@ void MainWindow::on_findCoresButton_clicked()
     ui->lexList->clear();
     ui->lcsList->clear();
 
+    progressLabel->setVisible(true);
+
     GraphCore::CoreFinderThread* thread = new GraphCore::CoreFinderThread(*this->graph);
 
-    connect(thread, &GraphCore::CoreFinderThread::progressChanged, this, [&](GraphCore::CoreFinderProgress& progress){
-
+    connect(thread, &GraphCore::CoreFinderThread::progressChanged, this, [&](GraphCore::CoreFinderProgress* progress){
+        auto text = progress->toString();
+        progressLabel->setText(text);
     });
 
     connect(thread, &GraphCore::CoreFinderThread::internalFounded, this, [&](QStringList* result){
@@ -173,9 +186,19 @@ void MainWindow::on_findCoresButton_clicked()
         if(result != nullptr)
             this->ui->lcsList->addItems(*result);
         this->setEnabled(true);
+        progressLabel->clear();
+        progressLabel->setVisible(false);
     });
 
     connect(thread, &GraphCore::CoreFinderThread::finished, thread, &GraphCore::CoreFinderThread::deleteLater);
 
     thread->start();
+}
+
+void MainWindow::on_about_triggered()
+{
+    AboutDialog* aboutDialog=new AboutDialog(this);
+    aboutDialog->setWindowFlags(aboutDialog->windowFlags() & ~Qt::WindowContextHelpButtonHint);
+    aboutDialog->setAttribute(Qt::WA_DeleteOnClose);
+    aboutDialog->exec();
 }

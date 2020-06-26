@@ -1,3 +1,4 @@
+release/aboutdialog.o
 release/data.o
 release/edge.o
 release/graph.o
@@ -8,6 +9,7 @@ release/mainwindow.o
 release/theme.o
 release/vertex.o
 release/qrc_darkTheme.o
+release/moc_aboutdialog.o
 release/moc_edge.o
 release/moc_graphstability.o
 release/moc_mainwindow.o

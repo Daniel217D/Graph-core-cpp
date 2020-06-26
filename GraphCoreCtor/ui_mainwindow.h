@@ -76,7 +76,7 @@ public:
         changeTheme->setChecked(true);
         about = new QAction(MainWindow);
         about->setObjectName(QString::fromUtf8("about"));
-        about->setVisible(false);
+        about->setVisible(true);
         clearAll = new QAction(MainWindow);
         clearAll->setObjectName(QString::fromUtf8("clearAll"));
         centralwidget = new QWidget(MainWindow);
