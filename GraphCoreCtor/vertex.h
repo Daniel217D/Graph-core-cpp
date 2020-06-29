@@ -97,7 +97,7 @@ namespace GraphCore
          * \param centerX Координата центра вершины x.
          * \param centerY Координата центра вершины y.
          * \param style Стиль вершины.
-         * \param parent
+         * \param parent Объект родителя.
          */
         explicit Vertex(int centerX = 0,
                         int centerY = 0,
@@ -145,6 +145,10 @@ namespace GraphCore
          * \param sender Создатель оповещения.
          */
         void startPositionChangedByMouse(Vertex* sender);
+        /*!
+         * \brief Оповещает подписчиков, что вершина начала процесс рисования линии.
+         * \param sender Создатель оповещения.
+         */
         void startDrawingArrow(Vertex* sender);
         /*!
          * \brief Оповещает подписчиков, что вершина переместилась (под действием мыши).
@@ -153,12 +157,20 @@ namespace GraphCore
          * \param y Координата y.
          */
         void positionChangedByMouse(Vertex* sender, int x, int y);
+        /*!
+         * \brief Оповещает подписчиков, что линия была смещена.
+         * \param sender Создатель оповещения.
+         */
         void lineChanged(Vertex* sender, const int x, const int y);
         /*!
          * \brief Оповещает подписчиков, что вершина закончила процесс перемещения (под действием мыши).
          * \param sender Создатель оповещения.
          */
         void endPositionChangedByMouse(Vertex* sender);
+        /*!
+         * \brief Оповещает подписчиков, что вершина закончила процесс рисования линии.
+         * \param sender Создатель оповещения.
+         */
         void endDrawingArrow(Vertex* sender);
 
     private:
@@ -174,6 +186,9 @@ namespace GraphCore
          * \brief Имя вершины.
          */
         QString name;
+        /*!
+         * \brief Указывает, находится ли вершина в процессе перемещения.
+         */
         bool inArrowMode;
 
         /*!

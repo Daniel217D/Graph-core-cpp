@@ -18,6 +18,10 @@ namespace GraphCore
          */
         explicit Graph(Theme& theme, bool isOriented = true, QWidget *parent = nullptr);
         /*!
+         * \brief Уничтожает граф.
+         */
+        ~Graph();
+        /*!
          * \brief Создает вершину и добавляет ее на граф.
          * \param x Координата x.
          * \param y Координата y.
@@ -42,24 +46,55 @@ namespace GraphCore
          * \param edge Ребро.
          */
         void removeEdge(Edge& edge);
-        void removeAll();
-
-        Theme* getTheme() const;
-        void setTheme(Theme* value);
-
-        Vertex* getVertexByName(QString name);
-        void selectVertex(QStringList* names = nullptr);
-        void deselectVertex(QStringList* names = nullptr);
-
         /*!
-         * \brief Уничтожает граф.
+         * \brief Удаляет все вершины и ребра графа.
          */
-        ~Graph();
-
+        void removeAll();
+        /*!
+         * \brief Возвращает тему графа
+         * \return Тема графа.
+         */
+        Theme* getTheme() const;
+        /*!
+         * \brief Устанавливает тему графа.
+         * \param value Тема графа.
+         */
+        void setTheme(Theme* value);
+        /*!
+         * \brief Получает вершину по имени.
+         * \param name Имя вершины.
+         * \return Вершина.
+         */
+        Vertex* getVertexByName(QString name);
+        /*!
+         * \brief Выбирает вершины с заданными именами.
+         * \param names Имена вершин.
+         */
+        void selectVertex(QStringList* names = nullptr);
+        /*!
+         * \brief Убирает выделение с заданных именами вершин.
+         * \param names Имена вершин.
+         */
+        void deselectVertex(QStringList* names = nullptr);
+        /*!
+         * \brief Возвращает ориентацию графа.
+         * \return Ориентация графа.
+         */
         bool getOriented() const;
+        /*!
+         * \brief Устанавливает ориентацию графа.
+         * \param value Ориентация графа.
+         */
         void setOriented(bool value);
-
+        /*!
+         * \brief Выполняет сериализацию текущего состояния графа и возвращает ссылку на них.
+         * \return Сериализованные данные графы.
+         */
         GraphData& serialize() const;
+        /*!
+         * \brief Восстанавливает состояние графа из сериализованных данных графа.
+         * \param data Сериализованные данные графы
+         */
         void deserialize(GraphData& data);
 
     protected:
@@ -82,9 +117,13 @@ namespace GraphCore
        * \brief Список ребер.
        */
       QList<Edge*> edges;
-
+      /*!
+       * \brief Линия (конструктор ребра).
+       */
       Line* line;
-
+      /*!
+       * \brief Тема.
+       */
       Theme* theme;
 
       /*!

@@ -11,9 +11,18 @@ namespace GraphCore
      */
     enum class EdgeDirection
     {
-        ToFirst, //Стрелка направлена в первую вершину
-        ToSecond, //Стрелка направлена во вторую вершину
-        All //Стрелка направлена в обе вершины
+        /*!
+         * Стрелка направлена в первую вершину.
+         */
+        ToFirst,
+        /*!
+         * Стрелка направлена во вторую вершину.
+         */
+        ToSecond,
+        /*!
+         * Стрелка направлена в обе вершины.
+         */
+        All
     };
 
     /*!
@@ -131,12 +140,27 @@ namespace GraphCore
          * \return Вторая вершина ребра.
          */
         Vertex* getSecond() const;
-
+        /*!
+         * \brief Вовзращает true, если стрелки стрелки направлений отображаются.
+         * \return Статус отображения стрелок.
+         */
         bool getOriented() const;
+        /*!
+         * \brief Устанавливает значение отображения стрелок.
+         * \param value Статус отображения стрелок.
+         */
         void setOriented(bool value);
 
     signals:
+        /*!
+         * \brief Указывает подписчику, что ребро нуждается в изменеии направления.
+         * \param sender Отправитель.
+         */
         void needDirectionChanged(Edge* sender);
+        /*!
+         * \brief Указывает подписчику, что ребро нуждается в удалении.
+         * \param sender Отправитель.
+         */
         void needDestruction(Edge* sender);
 
     private:
@@ -156,6 +180,9 @@ namespace GraphCore
          * \brief Стиль ребра.
          */
         EdgeStyle* style;
+        /*!
+         * \brief Статус отображения стрелок.
+         */
         bool isOriented;
 
         /*!
@@ -168,6 +195,10 @@ namespace GraphCore
          * \return Область рисования.
          */
         QRectF boundingRect() const;
+        /*!
+         * \brief Возвращает true, если точка point находится на ребре.
+         * \param point Точка.
+         */
         bool contains(const QPointF &point) const;
         /*!
          * \brief Отрисовывает объект.
@@ -181,6 +212,10 @@ namespace GraphCore
          * \param event Информация о событии.
          */
         void mousePressEvent(QGraphicsSceneMouseEvent *event);
+        /*!
+         * \brief Возвращает абстрактную линию заданную двумя вершинами.
+         * \return Абстрактная линия.
+         */
         QLineF line() const;
         /*!
          * \brief Возвращает коеффициент угла наклона.
@@ -190,7 +225,7 @@ namespace GraphCore
         /*!
          * \brief Возвращает точку касания относительно центра круга радиусом radix.
          * \param radix Радиус круга.
-         * \return Точка касания
+         * \return Точка касания.
          */
         QPointF getTouchPoint(qreal radix) const;
     };
