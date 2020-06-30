@@ -86,6 +86,13 @@
          <number>0</number>
         </property>
         <item>
+         <widget class="QPushButton" name="clearLists">
+          <property name="text">
+           <string>Очистить список</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <widget class="QPushButton" name="removeSelectButton">
           <property name="text">
            <string>Убрать выделение</string>

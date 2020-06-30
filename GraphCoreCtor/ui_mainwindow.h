@@ -47,6 +47,7 @@ public:
     QLabel *lcsButton;
     QListWidget *lcsList;
     QHBoxLayout *buttonsView;
+    QPushButton *clearLists;
     QPushButton *removeSelectButton;
     QPushButton *findCoresButton;
     QMenuBar *menubar;
@@ -133,6 +134,11 @@ public:
         buttonsView = new QHBoxLayout();
         buttonsView->setObjectName(QString::fromUtf8("buttonsView"));
         buttonsView->setContentsMargins(0, -1, -1, -1);
+        clearLists = new QPushButton(centralwidget);
+        clearLists->setObjectName(QString::fromUtf8("clearLists"));
+
+        buttonsView->addWidget(clearLists);
+
         removeSelectButton = new QPushButton(centralwidget);
         removeSelectButton->setObjectName(QString::fromUtf8("removeSelectButton"));
 
@@ -208,6 +214,7 @@ public:
         lexsButton->setText(QCoreApplication::translate("MainWindow", "\320\234\320\275\320\276\320\266\320\265\321\201\321\202\320\262\320\260 \320\262\320\275\320\265\321\210\320\275\320\265\320\271 \321\203\321\201\321\202\320\276\320\271\321\207\320\270\320\262\320\276\321\201\321\202\320\270", nullptr));
         linsButton->setText(QCoreApplication::translate("MainWindow", "\320\234\320\275\320\276\320\266\320\265\321\201\321\202\320\262\320\260 \320\262\320\275\321\203\321\202\321\200\320\265\320\275\320\275\320\265\320\271 \321\203\321\201\321\202\320\276\320\271\321\207\320\270\320\262\320\276\321\201\321\202\320\270", nullptr));
         lcsButton->setText(QCoreApplication::translate("MainWindow", "\320\257\320\264\321\200\320\260", nullptr));
+        clearLists->setText(QCoreApplication::translate("MainWindow", "\320\236\321\207\320\270\321\201\321\202\320\270\321\202\321\214 \321\201\320\277\320\270\321\201\320\276\320\272", nullptr));
         removeSelectButton->setText(QCoreApplication::translate("MainWindow", "\320\243\320\261\321\200\320\260\321\202\321\214 \320\262\321\213\320\264\320\265\320\273\320\265\320\275\320\270\320\265", nullptr));
         findCoresButton->setText(QCoreApplication::translate("MainWindow", "\320\222\321\213\320\277\320\276\320\273\320\275\320\270\321\202\321\214 \320\277\320\276\320\270\321\201\320\272 \321\217\320\264\321\200\320\260", nullptr));
         fileMenu->setTitle(QCoreApplication::translate("MainWindow", "\320\244\320\260\320\271\320\273", nullptr));

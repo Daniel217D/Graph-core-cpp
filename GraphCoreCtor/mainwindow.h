@@ -44,6 +44,8 @@ private slots:
 
     void on_about_triggered();
 
+    void on_clearLists_clicked();
+
 private:
     Ui::MainWindow *ui;
     QGraphicsView* graphView;

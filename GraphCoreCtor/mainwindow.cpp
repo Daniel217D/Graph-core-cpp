@@ -202,3 +202,11 @@ void MainWindow::on_about_triggered()
     aboutDialog->setAttribute(Qt::WA_DeleteOnClose);
     aboutDialog->exec();
 }
+
+void MainWindow::on_clearLists_clicked()
+{
+    graph->deselectVertex();
+    ui->linsList->clear();
+    ui->lexList->clear();
+    ui->lcsList->clear();
+}
