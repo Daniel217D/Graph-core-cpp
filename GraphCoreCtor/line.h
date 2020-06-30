@@ -18,7 +18,10 @@ namespace GraphCore
          * \param direction Направление линии.
          * \param parent Объект родителя.
          */
-        explicit Line(EdgeStyle* style = nullptr, EdgeDirection direction = EdgeDirection::All, QObject *parent = nullptr);
+        explicit Line(EdgeStyle* style = nullptr,
+                      EdgeDirection direction = EdgeDirection::All,
+                      bool isOriented = true,
+                      QObject *parent = nullptr);
         /*!
          * \brief Уничтожает линию.
          */
@@ -48,6 +51,16 @@ namespace GraphCore
          * \param value Вершина.
          */
         void setPoint(Vertex *value);
+        /*!
+         * \brief Вовзращает true, если стрелки стрелки направлений отображаются.
+         * \return Статус отображения стрелок.
+         */
+        bool getOriented() const;
+        /*!
+         * \brief Устанавливает значение отображения стрелок.
+         * \param value Статус отображения стрелок.
+         */
+        void setOriented(bool value);
 
     private:
         /*!
@@ -62,6 +75,10 @@ namespace GraphCore
          * \brief point
          */
         Vertex* point;
+        /*!
+         * \brief Статус отображения стрелок.
+         */
+        bool isOriented;
 
         /*!
          * \brief Отрисовывает объект.

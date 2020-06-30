@@ -88,7 +88,7 @@ namespace GraphCore
     /*!
      * \brief Ребро.
      */
-    class Edge : public QObject, public QGraphicsItem
+    class Edge : public QObject, public QGraphicsLineItem
     {
         Q_OBJECT
 
@@ -191,15 +191,10 @@ namespace GraphCore
          */
         int getQuarter() const;
         /*!
-         * \brief Возвращает собственную область рисования.
-         * \return Область рисования.
-         */
-        QRectF boundingRect() const;
-        /*!
          * \brief Возвращает true, если точка point находится на ребре.
          * \param point Точка.
          */
-        bool contains(const QPointF &point) const;
+        //bool contains(const QPointF &point) const;
         /*!
          * \brief Отрисовывает объект.
          * \param painter Рисовальщик.

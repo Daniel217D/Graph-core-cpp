@@ -1,5 +1,4 @@
 #include "edge.h"
-#include "QtMath"
 
 namespace GraphCore
 {
@@ -38,7 +37,7 @@ namespace GraphCore
     }
 
     Edge::Edge(Vertex *first, Vertex *second, EdgeDirection direction, EdgeStyle* style, bool isOriented, QObject *parent)
-        : QObject(parent), QGraphicsItem()
+        : QObject(parent), QGraphicsLineItem()
     {
         setZValue(0);
         this->first = first;
@@ -47,17 +46,18 @@ namespace GraphCore
         this->style = style;
         this->isOriented = isOriented;
 
-        //this->setPos(first->x(), first->y());
+        this->setLine(first->x(), first->y(), second->x(), second->y());
 
         if (first != nullptr)
-            connect(first, &Vertex::positionChangedByMouse, this, [&](){
-                //this->setPos(sender->x(), sender->y());
-                update();
+            connect(first, &Vertex::positionChangedByMouse, this, [&](Vertex* sender, int x, int y){
+                Q_UNUSED(sender);
+                this->setLine(x, y, this->line().p2().x(), this->line().p2().y());
             });
 
         if (second != nullptr)
-            connect(second, &Vertex::positionChangedByMouse, this, [&](){
-                update();
+            connect(second, &Vertex::positionChangedByMouse, this, [&](Vertex* sender, int x, int y){
+                Q_UNUSED(sender);
+                this->setLine(this->line().p1().x(), this->line().p1().y(), x, y);
             });
     }
 
@@ -122,22 +122,6 @@ namespace GraphCore
         else return 2;
     }
 
-    QRectF Edge::boundingRect() const
-    {
-        auto width = abs(first->x() - second->x());
-        auto height = abs(first->y() - second->y());
-
-        return QRectF(0, 0, width, height);
-    }
-
-    bool Edge::contains(const QPointF &point) const
-    {
-        auto realCoords = mapToScene(QPointF(point.x(), point.y()));
-        qreal k = getTiltAngle();
-        qreal b = first->y() - k * first->x();
-        return abs((k * realCoords.x() + b)  - realCoords.y()) <= style->getDiameter();
-    }
-
     qreal Edge::getTiltAngle() const
     {
         return (second->y() - first->y()) / (second->x() - first->x());
@@ -148,93 +132,77 @@ namespace GraphCore
         Q_UNUSED(option);
         Q_UNUSED(widget);
 
-        QRectF sizes = boundingRect();
         EdgeStyle* ptr_style = getStyle();
 
         if(ptr_style != nullptr){
             EdgeStyle style = *ptr_style;
             painter->setRenderHint(QPainter::Antialiasing, true);
             painter->setPen(QPen(style.getColor(), style.getDiameter()));
-
-            int quarter = getQuarter();
-            bool firstBit = quarter & 1;
-            bool secondBit = quarter >> 1;
-
-            QPointF touchPointStart = getTouchPoint(first->getStyle()->getRadius());
-            qreal edgeStartX = firstBit ^ secondBit ? touchPointStart.x() : -touchPointStart.x();
-            qreal edgeStartY = firstBit ^ secondBit ? -touchPointStart.y() : touchPointStart.y();
-
-            QPointF touchPointEnd = getTouchPoint(second->getStyle()->getRadius());
-            qreal edgeEndX = firstBit ^ secondBit ? -touchPointEnd.x() : touchPointEnd.x();
-            qreal edgeEndY = firstBit ^ secondBit ? touchPointEnd.y() : -touchPointEnd.y();
-
-            qreal startX = firstBit ^ secondBit ? sizes.width() + edgeStartX : 0 + edgeStartX;
-            qreal startY = secondBit ? 0 + edgeStartY : sizes.height() + edgeStartY;
-            qreal endX = firstBit ^ secondBit ? 0 + edgeEndX : sizes.width() + edgeEndX;
-            qreal endY = secondBit ? sizes.height() + edgeEndY : 0 + edgeEndY;
-
-            this->setPos(firstBit ^ secondBit ? second->x() : first->x(),
-                         secondBit ? first->y() : second->y());
-
-            painter->drawLine(startX, startY, endX, endY);
+            painter->drawLine(line());
 
             if (isOriented && (getDirection() == EdgeDirection::All || getDirection() == EdgeDirection::ToSecond))
             {
-                double angle = atan2(endY - startY, endX - startX);
+                double angle = atan2(line().p2().y() - line().p1().y(), line().p2().x() - line().p1().x());
                 for(int i = -1; i < 2; i += 2)
-                    painter->drawLine(endX,
-                                      endY,
-                                      endX - style.getArrowLength() * cos(angle + i * style.getArrowAngle()),
-                                      endY - style.getArrowLength() * sin(angle + i * style.getArrowAngle()));
+                    painter->drawLine(line().p2().x(),
+                                      line().p2().y(),
+                                      line().p2().x() - style.getArrowLength() * cos(angle + i * style.getArrowAngle()),
+                                      line().p2().y() - style.getArrowLength() * sin(angle + i * style.getArrowAngle()));
             }
 
             if (isOriented && (getDirection() == EdgeDirection::All || getDirection() == EdgeDirection::ToFirst)){
-            double angle = atan2(startY - endY, startX - endX);
+            double angle = atan2(line().p1().y() - line().p2().y(), line().p1().x() - line().p2().x());
                 for(int i = -1; i < 2; i += 2)
-                    painter->drawLine(startX,
-                                      startY,
-                                      startX - style.getArrowLength() * cos(angle + i * style.getArrowAngle()),
-                                      startY - style.getArrowLength() * sin(angle + i * style.getArrowAngle()));
+                    painter->drawLine(line().p1().x(),
+                                      line().p1().y(),
+                                      line().p1().x() - style.getArrowLength() * cos(angle + i * style.getArrowAngle()),
+                                      line().p1().y() - style.getArrowLength() * sin(angle + i * style.getArrowAngle()));
             }
         }
     }
 
     void Edge::mousePressEvent(QGraphicsSceneMouseEvent *event)
     {
-        if (contains(event->pos())){
             if(event->button() == Qt::LeftButton)
                 needDirectionChanged(this);
             else if (event->button() == Qt::RightButton)
                 needDestruction(this);
-        }
     }
 
     QLineF Edge::line() const
-    {
-        QRectF sizes = boundingRect();
-        int quarter = getQuarter();
+        {
+            int quarter = getQuarter();
 
-        if (quarter > -1){
-            QPointF touchPointStart = getTouchPoint(first->getStyle()->getRadius());
-            QPointF touchPointEnd = getTouchPoint(second->getStyle()->getRadius());
-            switch(quarter){
-            case 0:
-                return QLineF(0 - touchPointStart.x(), 0 + touchPointEnd.y(),
-                              sizes.width() + touchPointStart.x(), -sizes.height() - touchPointEnd.y());
-            case 1:
-                return QLineF(0 + touchPointStart.x(), 0 - touchPointEnd.y(),
-                              -sizes.width() - touchPointStart.x(), -sizes.height() + touchPointEnd.y());
-            case 2:
-                return QLineF(0 + touchPointStart.x(), 0 - touchPointEnd.y(),
-                              -sizes.width() - touchPointStart.x(), sizes.height() + touchPointEnd.y());
-            case 3:
-                return QLineF(0 - touchPointStart.x(), 0 + touchPointEnd.y(),
-                              sizes.width() + touchPointStart.x(), sizes.height() - + touchPointEnd.y());
+            if (quarter > -1){
+                QPointF touchPointStart = getTouchPoint(first->getStyle()->getRadius());
+                QPointF touchPointEnd = getTouchPoint(second->getStyle()->getRadius());
+
+                switch(quarter){
+                    case 0:
+                    return QLineF(this->first->x() - touchPointStart.x(),
+                                  this->first->y() + touchPointStart.y(),
+                                  this->second->x() + touchPointEnd.x(),
+                                  this->second->y() - touchPointEnd.y());
+                    case 1:
+                    return QLineF(this->first->x() + touchPointStart.x(),
+                                  this->first->y() - touchPointStart.y(),
+                                  this->second->x() - touchPointEnd.x(),
+                                  this->second->y() + touchPointEnd.y());
+                    case 2:
+                    return QLineF(this->first->x() + touchPointStart.x(),
+                                  this->first->y() - touchPointStart.y(),
+                                  this->second->x() - touchPointEnd.x(),
+                                  this->second->y() + touchPointEnd.y());
+                    case 3:
+                    return QLineF(this->first->x() - touchPointStart.x(),
+                                  this->first->y() + touchPointStart.y(),
+                                  this->second->x() + touchPointEnd.x(),
+                                  this->second->y() - touchPointEnd.y());
+                }
             }
 
+            return QLineF(0, 0, 0, 0);
         }
-        return QLineF(0, 0, 0, 0);
-    }
 
     QPointF Edge::getTouchPoint(qreal radix) const{
          //Прямая проходящая через вершины (в общем виде)

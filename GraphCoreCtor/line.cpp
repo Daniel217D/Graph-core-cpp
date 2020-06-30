@@ -2,7 +2,7 @@
 
 namespace GraphCore
 {
-    Line::Line(EdgeStyle* style, EdgeDirection direction, QObject* parent)
+    Line::Line(EdgeStyle* style, EdgeDirection direction, bool isOriented, QObject* parent)
         : QObject(parent), QGraphicsLineItem()
     {
         setZValue(2);
@@ -11,8 +11,14 @@ namespace GraphCore
         this->setLine(0, 0, 0, 0);
         this->direction = direction;
         this->style = style;
+        this->isOriented = isOriented;
 
         hide();
+    }
+
+    Line::~Line()
+    {
+
     }
 
     EdgeStyle *Line::getStyle() const
@@ -38,6 +44,17 @@ namespace GraphCore
             });
 
         } else hide();
+    }
+
+    bool Line::getOriented() const
+    {
+        return isOriented;
+    }
+
+    void Line::setOriented(bool value)
+    {
+        isOriented = value;
+        update();
     }
 
     EdgeDirection Line::getDirection() const

@@ -10,7 +10,7 @@ namespace GraphCore{
         this->theme = &theme;
         setBackgroundBrush(this->theme->getGraphBackground());
         this->isOriented = isOriented;
-        line = new Line(this->theme->getDefaultEdgeStyle());
+        line = new Line(this->theme->getDefaultEdgeStyle(), EdgeDirection::All, isOriented);
 
         addItem(line);
     }
@@ -74,7 +74,7 @@ namespace GraphCore{
         vertexies.removeOne(&vertex);
         removeItem(&vertex);
 
-        //vertex.deleteLater(); //Удаление кладет память X(
+        vertex.deleteLater(); //Удаление кладет память X(
 
         line->setPoint(nullptr);
         line->hide();
@@ -108,7 +108,7 @@ namespace GraphCore{
 
         removeItem(&edge);
 
-        //edge.deleteLater(); //Удаление кладет память X(
+        edge.deleteLater(); //Удаление кладет память X(
     }
 
     void Graph::removeAll()
@@ -198,6 +198,8 @@ namespace GraphCore{
     void Graph::setOriented(bool value)
     {
         isOriented = value;
+
+        line->setOriented(isOriented);
 
         for(Edge* edge : edges){
             edge->setOriented(isOriented);
