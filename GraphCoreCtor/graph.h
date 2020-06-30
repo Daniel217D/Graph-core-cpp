@@ -138,6 +138,13 @@ namespace GraphCore
        */
       Vertex* getVertex(const int x, const int y);
       /*!
+       * \brief Возвращает указатель на первое ребро, для которого координаты edge(x), y отличаются не более чем на diameter.
+       * \param x Координата x.
+       * \param y Координата y.
+       * \param diameter Диаметр.
+       */
+      Edge* getEdge(const int x, const int y, const qreal diameter);
+      /*!
        * \brief Возвращает указатели на все ребра, соединенные с вершиной.
        * \param vertex Вершина.
        * \return Список указателей на ребра.

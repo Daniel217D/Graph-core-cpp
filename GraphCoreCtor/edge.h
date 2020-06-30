@@ -150,6 +150,11 @@ namespace GraphCore
          * \param value Статус отображения стрелок.
          */
         void setOriented(bool value);
+        /*!
+         * \brief Возвращает коеффициент угла наклона.
+         * \return Коеффициент угла наклона
+         */
+        qreal getTiltAngle() const;
 
     signals:
         /*!
@@ -212,11 +217,6 @@ namespace GraphCore
          * \return Абстрактная линия.
          */
         QLineF line() const;
-        /*!
-         * \brief Возвращает коеффициент угла наклона.
-         * \return Коеффициент угла наклона
-         */
-        inline qreal getTiltAngle() const;
         /*!
          * \brief Возвращает точку касания относительно центра круга радиусом radix.
          * \param radix Радиус круга.

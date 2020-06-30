@@ -59,7 +59,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
-        MainWindow->resize(552, 312);
+        MainWindow->resize(614, 312);
         MainWindow->setMinimumSize(QSize(552, 312));
         openFile = new QAction(MainWindow);
         openFile->setObjectName(QString::fromUtf8("openFile"));
@@ -158,7 +158,7 @@ public:
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QString::fromUtf8("menubar"));
-        menubar->setGeometry(QRect(0, 0, 552, 20));
+        menubar->setGeometry(QRect(0, 0, 614, 20));
         fileMenu = new QMenu(menubar);
         fileMenu->setObjectName(QString::fromUtf8("fileMenu"));
         propertyMenu = new QMenu(menubar);

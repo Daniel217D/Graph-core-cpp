@@ -74,7 +74,7 @@ namespace GraphCore{
         vertexies.removeOne(&vertex);
         removeItem(&vertex);
 
-        vertex.deleteLater(); //Удаление кладет память X(
+        vertex.deleteLater();
 
         line->setPoint(nullptr);
         line->hide();
@@ -108,7 +108,7 @@ namespace GraphCore{
 
         removeItem(&edge);
 
-        edge.deleteLater(); //Удаление кладет память X(
+        edge.deleteLater();
     }
 
     void Graph::removeAll()
@@ -182,7 +182,8 @@ namespace GraphCore{
         QPointF mouse_pos = event->scenePos();
         Vertex* vertex = getVertex(mouse_pos.x(), mouse_pos.y());
         if(!vertex){
-            if(event->button() == Qt::LeftButton)
+            Edge* edge = getEdge(mouse_pos.x(), mouse_pos.y(), 15.);
+            if(!edge && event->button() == Qt::LeftButton)
                 createVertex(mouse_pos.x(), mouse_pos.y());
         } else {
             if(event->button() == Qt::RightButton)
@@ -309,5 +310,17 @@ namespace GraphCore{
                 return true;
         }
         return false;
+    }
+
+    Edge* Graph::getEdge(const int x, const int y, const qreal diameter){
+        for(Edge* edge : edges){
+            //Прямая проходящая через вершины (в общем виде)
+            qreal k = edge->getTiltAngle();
+            qreal b = edge->getFirst()->y() - k * edge->getFirst()->x();
+            qreal ySupposed = k * x + b;
+            if (abs(ySupposed - y) < diameter)
+                return edge;
+        }
+        return nullptr;
     }
 }
