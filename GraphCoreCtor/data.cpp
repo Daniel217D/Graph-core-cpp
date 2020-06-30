@@ -1,5 +1,5 @@
 #include "data.h"
-#include <fstream>
+#include <QFile>
 
 namespace GraphCore
 {
@@ -11,8 +11,9 @@ namespace GraphCore
 
     bool saveGraphData(GraphData& data, QString filename)
     {
-        std::ofstream file(filename.toStdString(), std::ios::binary);
-        if (file.is_open()){
+        QFile file(filename);
+        file.open(QIODevice::WriteOnly);
+        if (file.isOpen()){
             file.write(data.magic, sizeof(data.magic));
 
             file.write((char*)&data.isOriented, sizeof(data.isOriented));
@@ -41,8 +42,9 @@ namespace GraphCore
 
     GraphData* restoreGraphData(QString filename)
     {
-        std::ifstream file(filename.toStdString(), std::ios::binary);
-        if (file.is_open()){
+        QFile file(filename);
+        file.open(QIODevice::ReadOnly);
+        if (file.isOpen()){
             GraphData* data = new GraphData();
 
             char magic[sizeof(data->magic)];

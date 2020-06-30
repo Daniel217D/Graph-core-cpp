@@ -12,7 +12,6 @@
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QDialog>
-#include <QtWidgets/QGraphicsView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QTextBrowser>
@@ -28,7 +27,7 @@ public:
     QLabel *copyright;
     QWidget *verticalLayoutWidget;
     QVBoxLayout *verticalLayout;
-    QGraphicsView *logo;
+    QLabel *logo;
     QTextBrowser *description;
 
     void setupUi(QDialog *AboutDialog)
@@ -47,19 +46,22 @@ public:
         copyright->setGeometry(QRect(10, 270, 281, 16));
         verticalLayoutWidget = new QWidget(AboutDialog);
         verticalLayoutWidget->setObjectName(QString::fromUtf8("verticalLayoutWidget"));
-        verticalLayoutWidget->setGeometry(QRect(-1, -1, 401, 261));
+        verticalLayoutWidget->setGeometry(QRect(-1, -1, 407, 261));
         verticalLayout = new QVBoxLayout(verticalLayoutWidget);
+        verticalLayout->setSpacing(0);
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
         verticalLayout->setContentsMargins(0, 0, 0, 0);
-        logo = new QGraphicsView(verticalLayoutWidget);
+        logo = new QLabel(verticalLayoutWidget);
         logo->setObjectName(QString::fromUtf8("logo"));
-        logo->setMinimumSize(QSize(0, 0));
-        logo->setMaximumSize(QSize(16777215, 50));
+        logo->setMinimumSize(QSize(401, 50));
+        logo->setMaximumSize(QSize(401, 50));
 
         verticalLayout->addWidget(logo);
 
         description = new QTextBrowser(verticalLayoutWidget);
         description->setObjectName(QString::fromUtf8("description"));
+        description->setMinimumSize(QSize(401, 209));
+        description->setMaximumSize(QSize(401, 209));
 
         verticalLayout->addWidget(description);
 
@@ -73,7 +75,8 @@ public:
     {
         AboutDialog->setWindowTitle(QCoreApplication::translate("AboutDialog", "\320\236 \320\277\321\200\320\276\320\263\321\200\320\260\320\274\320\274\320\265", nullptr));
         ok->setText(QCoreApplication::translate("AboutDialog", "OK", nullptr));
-        copyright->setText(QCoreApplication::translate("AboutDialog", "<html><head/><body><p>Powered by Danya_io, Niapoll, Vit-Vit\360\237\247\241</p></body></html>", nullptr));
+        copyright->setText(QCoreApplication::translate("AboutDialog", "<html><head/><body><p>Powered by Danya_io, Niapoll, Vit-Vit with <span style=\" font-size:10pt;\">\342\231\245</span></p></body></html>", nullptr));
+        logo->setText(QString());
         description->setMarkdown(QCoreApplication::translate("AboutDialog", "**GraphCoreRector v1.0**\n"
 "\n"
 "\320\224\320\260\320\275\320\275\320\260\321\217 \321\203\321\202\320\270\320\273\320\270\321\202\320\260 \321\201\320\276\320\267\320\264\320\260\320\275\320\260 \320\264\320\273\321\217 \320\275\320\260\321\205\320\276\320\266\320\264\320\265\320\275\320\270\321\217 \321\217\320\264\321\200\320\260 \320\263\321\200\320\260\321\204\320\260, \320\260 \321\202\320\260\320\272\320\266\320\265 \320\265\320\263\320\276 \320\274\320\275\320\276\320\266\320\265\321\201\321\202\320\262\n"

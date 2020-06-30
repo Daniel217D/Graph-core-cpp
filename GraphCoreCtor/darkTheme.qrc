@@ -42,5 +42,6 @@
         <file>darkTheme/vmovetoolbar.svg</file>
         <file>darkTheme/vsepartoolbars.svg</file>
         <file>darkTheme.qss</file>
+        <file>resources/aboutLines.png</file>
     </qresource>
 </RCC>
