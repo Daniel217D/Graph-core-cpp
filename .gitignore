@@ -30,3 +30,9 @@
 *.exe
 *.out
 *.app
+
+x64/
+*.stash
+Makefile*
+debug/
+*.autosave

@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>AboutDialog</class>
+ <widget class="QDialog" name="AboutDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>300</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>400</width>
+    <height>300</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>400</width>
+    <height>300</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>О программе</string>
+  </property>
+  <widget class="QPushButton" name="ok">
+   <property name="geometry">
+    <rect>
+     <x>290</x>
+     <y>270</y>
+     <width>100</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>100</width>
+     <height>20</height>
+    </size>
+   </property>
+   <property name="text">
+    <string>OK</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="copyright">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>270</y>
+     <width>281</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Powered by Danya_io, Niapoll, Vit-Vit with &lt;span style=&quot; font-size:10pt;&quot;&gt;♥&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </widget>
+  <widget class="QWidget" name="verticalLayoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>-1</x>
+     <y>-1</y>
+     <width>407</width>
+     <height>261</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <property name="spacing">
+     <number>0</number>
+    </property>
+    <item>
+     <widget class="QLabel" name="logo">
+      <property name="minimumSize">
+       <size>
+        <width>401</width>
+        <height>50</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>401</width>
+        <height>50</height>
+       </size>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QTextBrowser" name="description">
+      <property name="minimumSize">
+       <size>
+        <width>401</width>
+        <height>209</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>401</width>
+        <height>209</height>
+       </size>
+      </property>
+      <property name="markdown">
+       <string>**GraphCoreRector v1.0**
+
+Данная утилита создана для нахождения ядра графа, а также его множеств
+внутренней и внешней устойчивости.
+
+Инструкция:
+
+- для создания вершины кликните дважды левой кнопкой мыши по свободной области; 
+- для перемещения вершины удерживайте ее левой кнопкой мыши;
+- для создания ребра щелкните правой кнопкой мыши по любой вершине и, удерживая
+  ее, соедините с другой вершиной; 
+- для удаления ребра кликните по нему правой кнопкой мыши;
+- для смены направления ребра щелкните по нему левой кнопкой мыши;
+- для удаления вершины кликните по ней дважды правой кнопкой мыши;
+- чтобы выполнить поиск ядра, нажмите на кнопку «Выполнить поиск ядра»;
+- все множества и ядра подсвечиваются на графе красным цветом по двойному
+  щелчку левой кнопки мыши на соответствующий элемент списка;
+- чтобы убрать подсветку вершин, нажмите на кнопку «Убрать выделения»;
+- чтобы очистить списки найденных множеств и ядра, нажмите кнопку «Очистить
+  список»;
+- чтобы открыть сохраненный граф, нажмите на пункт меню Файл-&gt;Открыть;
+- чтобы сохранить текущий граф с перезаписыванием файла, нажмите на пункт меню
+  Файл-&gt;Сохранить;
+- чтобы сохранить текущий граф в новый файл, нажмите на пункт меню
+  Файл-&gt;Сохранить как;
+- чтобы удалить все вершины и ребра графа, нажмите на пункт меню Файл-&gt;Очистить
+  все;
+- чтобы переключить граф в ориентированный/неориентированный граф, нажмите на
+  пункт меню Свойства-&gt;Ориентация;
+- чтобы сменить тему приложения на черную/белую, нажмите на пункт меню
+  Свойства-&gt;Черная тема.
+</string>
+      </property>
+      <property name="html">
+       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;GraphCoreRector v1.0&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Данная утилита создана для нахождения ядра графа, а также его множеств внутренней и внешней устойчивости.&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Инструкция:&lt;/p&gt;
+&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;для создания вершины кликните дважды левой кнопкой мыши по свободной области; &lt;/li&gt;
+&lt;li style=&quot;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;для перемещения вершины удерживайте ее левой кнопкой мыши;&lt;/li&gt;
+&lt;li style=&quot;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;для создания ребра щелкните правой кнопкой мыши по любой вершине и, удерживая ее, соедините с другой вершиной; &lt;/li&gt;
+&lt;li style=&quot;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;для удаления ребра кликните по нему правой кнопкой мыши;&lt;/li&gt;
+&lt;li style=&quot;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;для смены направления ребра щелкните по нему левой кнопкой мыши;&lt;/li&gt;
+&lt;li style=&quot;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;для удаления вершины кликните по ней дважды правой кнопкой мыши;&lt;/li&gt;
+&lt;li style=&quot; font-size:8pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;чтобы выполнить поиск ядра, нажмите на кнопку «Выполнить поиск ядра»;&lt;/li&gt;
+&lt;li style=&quot; font-size:8pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;все множества и ядра подсвечиваются на графе красным цветом по двойному щелчку левой кнопки мыши на соответствующий элемент списка;&lt;/li&gt;
+&lt;li style=&quot; font-size:8pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;чтобы убрать подсветку вершин, нажмите на кнопку «Убрать выделения»;&lt;/li&gt;
+&lt;li style=&quot; font-size:8pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;чтобы очистить списки найденных множеств и ядра, нажмите кнопку «Очистить список»;&lt;/li&gt;
+&lt;li style=&quot; font-size:8pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;чтобы открыть сохраненный граф, нажмите на пункт меню Файл-&amp;gt;Открыть;&lt;/li&gt;
+&lt;li style=&quot; font-size:8pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;чтобы сохранить текущий граф с перезаписыванием файла, нажмите на пункт меню Файл-&amp;gt;Сохранить;&lt;/li&gt;
+&lt;li style=&quot; font-size:8pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;чтобы сохранить текущий граф в новый файл, нажмите на пункт меню Файл-&amp;gt;Сохранить как;&lt;/li&gt;
+&lt;li style=&quot; font-size:8pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;чтобы удалить все вершины и ребра графа, нажмите на пункт меню Файл-&amp;gt;Очистить все;&lt;/li&gt;
+&lt;li style=&quot; font-size:8pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;чтобы переключить граф в ориентированный/неориентированный граф, нажмите на пункт меню Свойства-&amp;gt;Ориентация;&lt;/li&gt;
+&lt;li style=&quot; font-size:8pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;чтобы сменить тему приложения на черную/белую, нажмите на пункт меню Свойства-&amp;gt;Черная тема.&lt;/li&gt;&lt;/ul&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

@@ -1,0 +1,16 @@
+debug/aboutdialog.o
+debug/data.o
+debug/edge.o
+debug/graph.o
+debug/graphstability.o
+debug/line.o
+debug/main.o
+debug/mainwindow.o
+debug/theme.o
+debug/vertex.o
+debug/qrc_darkTheme.o
+debug/moc_aboutdialog.o
+debug/moc_edge.o
+debug/moc_graphstability.o
+debug/moc_mainwindow.o
+debug/moc_vertex.o
